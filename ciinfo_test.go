@@ -2,10 +2,38 @@ package ciinfo
 
 import (
 	"os"
+	"reflect"
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
+
+// NOTE: backporting from 1.17
+func setEnv(t *testing.T, key, value string) {
+	t.Helper()
+
+	if prevVal, exists := os.LookupEnv(key); exists {
+		t.Cleanup(func() {
+			os.Setenv(key, prevVal)
+		})
+	} else {
+		t.Cleanup(func() {
+			os.Unsetenv(key)
+		})
+	}
+
+	os.Setenv(key, value)
+}
+
+func assertEqual(t *testing.T, expected, actual interface{}, s ...string) {
+	t.Helper()
+
+	if !reflect.DeepEqual(expected, actual) {
+		message := ""
+		if len(s) > 0 {
+			message = " - " + s[0]
+		}
+		t.Errorf("\n[expected]: %v\n[actual]: %v%s", expected, actual, message)
+	}
+}
 
 func isActualPr() bool {
 	value, exists := os.LookupEnv("GITHUB_EVENT_NAME")
@@ -20,7 +48,7 @@ func assertVendorConstants(t *testing.T, expected string) {
 		boolean := vendor.constant == expected
 		boolean = expected == "SOLANO" && vendor.constant == "TDDIUM" || boolean // support deprecated option
 
-		assert.Equal(t, boolean, vendorsIsCI[vendor.constant], "ci."+vendor.constant)
+		assertEqual(t, boolean, vendorsIsCI[vendor.constant], "ci."+vendor.constant)
 	}
 }
 
@@ -37,14 +65,14 @@ type TestScenario struct {
 
 func TestCI(t *testing.T) {
 	t.Run("Known CI", func(t *testing.T) {
-		t.Setenv("GITHUB_ACTIONS", "true")
+		setEnv(t, "GITHUB_ACTIONS", "true")
 
 		initialize()
 
-		assert.Equal(t, 37, len(vendors), "We should have 37 vendors")
-		assert.Equal(t, true, IsCI)
-		assert.Equal(t, isActualPr(), IsPr)
-		assert.Equal(t, "GitHub Actions", Name)
+		assertEqual(t, 37, len(vendors), "We should have 37 vendors")
+		assertEqual(t, true, IsCI)
+		assertEqual(t, isActualPr(), IsPr)
+		assertEqual(t, "GitHub Actions", Name)
 		assertVendorConstants(t, "GITHUB_ACTIONS")
 	})
 
@@ -53,32 +81,32 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assert.Equal(t, false, IsCI)
-		assert.Equal(t, false, IsPr)
-		assert.Equal(t, "", Name)
+		assertEqual(t, false, IsCI)
+		assertEqual(t, false, IsPr)
+		assertEqual(t, "", Name)
 		assertVendorConstants(t, "")
 	})
 
 	t.Run("Unknown CI", func(t *testing.T) {
-		t.Setenv("CI", "true")
+		setEnv(t, "CI", "true")
 
 		initialize()
 
-		assert.Equal(t, true, IsCI)
-		assert.Equal(t, false, IsPr)
-		assert.Equal(t, "", Name)
+		assertEqual(t, true, IsCI)
+		assertEqual(t, false, IsPr)
+		assertEqual(t, "", Name)
 		assertVendorConstants(t, "")
 	})
 
 	t.Run("Not Codeship", func(t *testing.T) {
-		t.Setenv("CI_NAME", "invalid")
+		setEnv(t, "CI_NAME", "invalid")
 
 		initialize()
 
-		assert.Equal(t, false, IsCI)
-		assert.Equal(t, false, IsPr)
-		assert.Equal(t, "", Name)
-		assert.Equal(t, false, IsVendor("CODESHIP"))
+		assertEqual(t, false, IsCI)
+		assertEqual(t, false, IsPr)
+		assertEqual(t, "", Name)
+		assertEqual(t, false, IsVendor("CODESHIP"))
 	})
 
 	for _, scenario := range []TestScenario{
@@ -90,8 +118,8 @@ func TestCI(t *testing.T) {
 				constant: "APPVEYOR",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("APPVEYOR", "true")
-				t.Setenv("APPVEYOR_PULL_REQUEST_NUMBER", "42")
+				setEnv(t, "APPVEYOR", "true")
+				setEnv(t, "APPVEYOR_PULL_REQUEST_NUMBER", "42")
 			},
 		},
 		{
@@ -102,7 +130,7 @@ func TestCI(t *testing.T) {
 				constant: "APPVEYOR",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("APPVEYOR", "true")
+				setEnv(t, "APPVEYOR", "true")
 			},
 		},
 		{
@@ -113,8 +141,8 @@ func TestCI(t *testing.T) {
 				constant: "AZURE_PIPELINES",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI", "https://dev.azure.com/Contoso")
-				t.Setenv("SYSTEM_PULLREQUEST_PULLREQUESTID", "42")
+				setEnv(t, "SYSTEM_TEAMFOUNDATIONCOLLECTIONURI", "https://dev.azure.com/Contoso")
+				setEnv(t, "SYSTEM_PULLREQUEST_PULLREQUESTID", "42")
 			},
 		},
 		{
@@ -125,7 +153,7 @@ func TestCI(t *testing.T) {
 				constant: "AZURE_PIPELINES",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI", "https://dev.azure.com/Contoso")
+				setEnv(t, "SYSTEM_TEAMFOUNDATIONCOLLECTIONURI", "https://dev.azure.com/Contoso")
 			},
 		},
 		{
@@ -136,8 +164,8 @@ func TestCI(t *testing.T) {
 				constant: "BITBUCKET",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("BITBUCKET_COMMIT", "true")
-				t.Setenv("BITBUCKET_PR_ID", "42")
+				setEnv(t, "BITBUCKET_COMMIT", "true")
+				setEnv(t, "BITBUCKET_PR_ID", "42")
 			},
 		},
 		{
@@ -148,7 +176,7 @@ func TestCI(t *testing.T) {
 				constant: "BITBUCKET",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("BITBUCKET_COMMIT", "true")
+				setEnv(t, "BITBUCKET_COMMIT", "true")
 			},
 		},
 		{
@@ -159,8 +187,8 @@ func TestCI(t *testing.T) {
 				constant: "BUILDKITE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("BUILDKITE", "true")
-				t.Setenv("BUILDKITE_PULL_REQUEST", "42")
+				setEnv(t, "BUILDKITE", "true")
+				setEnv(t, "BUILDKITE_PULL_REQUEST", "42")
 			},
 		},
 		{
@@ -171,8 +199,8 @@ func TestCI(t *testing.T) {
 				constant: "BUILDKITE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("BUILDKITE", "true")
-				t.Setenv("BUILDKITE_PULL_REQUEST", "false")
+				setEnv(t, "BUILDKITE", "true")
+				setEnv(t, "BUILDKITE_PULL_REQUEST", "false")
 			},
 		},
 		{
@@ -183,8 +211,8 @@ func TestCI(t *testing.T) {
 				constant: "CIRCLE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("CIRCLECI", "true")
-				t.Setenv("CIRCLE_PULL_REQUEST", "42")
+				setEnv(t, "CIRCLECI", "true")
+				setEnv(t, "CIRCLE_PULL_REQUEST", "42")
 			},
 		},
 		{
@@ -195,7 +223,7 @@ func TestCI(t *testing.T) {
 				constant: "CIRCLE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("CIRCLECI", "true")
+				setEnv(t, "CIRCLECI", "true")
 			},
 		},
 		{
@@ -206,8 +234,8 @@ func TestCI(t *testing.T) {
 				constant: "CIRRUS",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("CIRRUS_CI", "true")
-				t.Setenv("CIRRUS_PR", "42")
+				setEnv(t, "CIRRUS_CI", "true")
+				setEnv(t, "CIRRUS_PR", "42")
 			},
 		},
 		{
@@ -218,7 +246,7 @@ func TestCI(t *testing.T) {
 				constant: "CIRRUS",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("CIRRUS_CI", "true")
+				setEnv(t, "CIRRUS_CI", "true")
 			},
 		},
 		{
@@ -229,8 +257,8 @@ func TestCI(t *testing.T) {
 				constant: "CODEFRESH",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("CF_BUILD_ID", "true")
-				t.Setenv("CF_PULL_REQUEST_ID", "42")
+				setEnv(t, "CF_BUILD_ID", "true")
+				setEnv(t, "CF_PULL_REQUEST_ID", "42")
 			},
 		},
 		{
@@ -241,8 +269,8 @@ func TestCI(t *testing.T) {
 				constant: "CODEFRESH",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("CF_BUILD_ID", "true")
-				t.Setenv("CF_PULL_REQUEST_NUMBER", "42")
+				setEnv(t, "CF_BUILD_ID", "true")
+				setEnv(t, "CF_PULL_REQUEST_NUMBER", "42")
 			},
 		},
 		{
@@ -253,7 +281,7 @@ func TestCI(t *testing.T) {
 				constant: "CODESHIP",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("CI_NAME", "codeship")
+				setEnv(t, "CI_NAME", "codeship")
 			},
 		},
 		{
@@ -264,7 +292,7 @@ func TestCI(t *testing.T) {
 				constant: "CODEFRESH",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("CF_BUILD_ID", "true")
+				setEnv(t, "CF_BUILD_ID", "true")
 			},
 		},
 		{
@@ -275,7 +303,7 @@ func TestCI(t *testing.T) {
 				constant: "DRONE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("DRONE", "true")
+				setEnv(t, "DRONE", "true")
 			},
 		},
 		{
@@ -286,8 +314,8 @@ func TestCI(t *testing.T) {
 				constant: "DRONE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("DRONE", "true")
-				t.Setenv("DRONE_BUILD_EVENT", "test")
+				setEnv(t, "DRONE", "true")
+				setEnv(t, "DRONE_BUILD_EVENT", "test")
 			},
 		},
 		{
@@ -298,8 +326,8 @@ func TestCI(t *testing.T) {
 				constant: "DRONE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("DRONE", "true")
-				t.Setenv("DRONE_BUILD_EVENT", "pull_request")
+				setEnv(t, "DRONE", "true")
+				setEnv(t, "DRONE_BUILD_EVENT", "pull_request")
 			},
 		},
 		{
@@ -310,8 +338,8 @@ func TestCI(t *testing.T) {
 				constant: "JENKINS",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("JENKINS_URL", "true")
-				t.Setenv("ghprbPullId", "true")
+				setEnv(t, "JENKINS_URL", "true")
+				setEnv(t, "ghprbPullId", "true")
 			},
 		},
 		{
@@ -322,8 +350,8 @@ func TestCI(t *testing.T) {
 				constant: "JENKINS",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("BUILD_ID", "true")
-				t.Setenv("CHANGE_ID", "true")
+				setEnv(t, "BUILD_ID", "true")
+				setEnv(t, "CHANGE_ID", "true")
 			},
 		},
 		{
@@ -334,7 +362,7 @@ func TestCI(t *testing.T) {
 				constant: "JENKINS",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("BUILD_ID", "true")
+				setEnv(t, "BUILD_ID", "true")
 			},
 		},
 		{
@@ -345,8 +373,8 @@ func TestCI(t *testing.T) {
 				constant: "LAYERCI",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("LAYERCI", "true")
-				t.Setenv("LAYERCI_PULL_REQUEST", "LAYERCI_PULL_REQUEST")
+				setEnv(t, "LAYERCI", "true")
+				setEnv(t, "LAYERCI_PULL_REQUEST", "LAYERCI_PULL_REQUEST")
 			},
 		},
 		{
@@ -357,7 +385,7 @@ func TestCI(t *testing.T) {
 				constant: "LAYERCI",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("LAYERCI", "true")
+				setEnv(t, "LAYERCI", "true")
 			},
 		},
 		{
@@ -368,8 +396,8 @@ func TestCI(t *testing.T) {
 				constant: "RENDER",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("RENDER", "true")
-				t.Setenv("IS_PULL_REQUEST", "true")
+				setEnv(t, "RENDER", "true")
+				setEnv(t, "IS_PULL_REQUEST", "true")
 			},
 		},
 		{
@@ -380,8 +408,8 @@ func TestCI(t *testing.T) {
 				constant: "RENDER",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("RENDER", "true")
-				t.Setenv("IS_PULL_REQUEST", "false")
+				setEnv(t, "RENDER", "true")
+				setEnv(t, "IS_PULL_REQUEST", "false")
 			},
 		},
 		{
@@ -392,8 +420,8 @@ func TestCI(t *testing.T) {
 				constant: "SEMAPHORE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("SEMAPHORE", "true")
-				t.Setenv("PULL_REQUEST_NUMBER", "42")
+				setEnv(t, "SEMAPHORE", "true")
+				setEnv(t, "PULL_REQUEST_NUMBER", "42")
 			},
 		},
 		{
@@ -404,7 +432,7 @@ func TestCI(t *testing.T) {
 				constant: "SEMAPHORE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("SEMAPHORE", "true")
+				setEnv(t, "SEMAPHORE", "true")
 			},
 		},
 		{
@@ -415,8 +443,8 @@ func TestCI(t *testing.T) {
 				constant: "SHIPPABLE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("SHIPPABLE", "true")
-				t.Setenv("IS_PULL_REQUEST", "true")
+				setEnv(t, "SHIPPABLE", "true")
+				setEnv(t, "IS_PULL_REQUEST", "true")
 			},
 		},
 		{
@@ -427,8 +455,8 @@ func TestCI(t *testing.T) {
 				constant: "SHIPPABLE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("SHIPPABLE", "true")
-				t.Setenv("IS_PULL_REQUEST", "false")
+				setEnv(t, "SHIPPABLE", "true")
+				setEnv(t, "IS_PULL_REQUEST", "false")
 			},
 		},
 		{
@@ -439,8 +467,8 @@ func TestCI(t *testing.T) {
 				constant: "SOLANO",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("TDDIUM", "true")
-				t.Setenv("TDDIUM_PR_ID", "42")
+				setEnv(t, "TDDIUM", "true")
+				setEnv(t, "TDDIUM_PR_ID", "42")
 			},
 		},
 		{
@@ -451,7 +479,7 @@ func TestCI(t *testing.T) {
 				constant: "SOLANO",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("TDDIUM", "true")
+				setEnv(t, "TDDIUM", "true")
 			},
 		},
 		{
@@ -462,8 +490,8 @@ func TestCI(t *testing.T) {
 				constant: "TRAVIS",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("TRAVIS", "true")
-				t.Setenv("TRAVIS_PULL_REQUEST", "42")
+				setEnv(t, "TRAVIS", "true")
+				setEnv(t, "TRAVIS_PULL_REQUEST", "42")
 			},
 		},
 		{
@@ -474,8 +502,8 @@ func TestCI(t *testing.T) {
 				constant: "TRAVIS",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("TRAVIS", "true")
-				t.Setenv("TRAVIS_PULL_REQUEST", "false")
+				setEnv(t, "TRAVIS", "true")
+				setEnv(t, "TRAVIS_PULL_REQUEST", "false")
 			},
 		},
 		{
@@ -486,8 +514,8 @@ func TestCI(t *testing.T) {
 				constant: "NETLIFY",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("NETLIFY", "true")
-				t.Setenv("PULL_REQUEST", "true")
+				setEnv(t, "NETLIFY", "true")
+				setEnv(t, "PULL_REQUEST", "true")
 			},
 		},
 		{
@@ -498,8 +526,8 @@ func TestCI(t *testing.T) {
 				constant: "NETLIFY",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("NETLIFY", "true")
-				t.Setenv("PULL_REQUEST", "false")
+				setEnv(t, "NETLIFY", "true")
+				setEnv(t, "PULL_REQUEST", "false")
 			},
 		},
 		{
@@ -510,7 +538,7 @@ func TestCI(t *testing.T) {
 				constant: "VERCEL",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("NOW_BUILDER", "1")
+				setEnv(t, "NOW_BUILDER", "1")
 			},
 		},
 		{
@@ -521,8 +549,8 @@ func TestCI(t *testing.T) {
 				constant: "NEVERCODE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("NEVERCODE", "true")
-				t.Setenv("NEVERCODE_PULL_REQUEST", "true")
+				setEnv(t, "NEVERCODE", "true")
+				setEnv(t, "NEVERCODE_PULL_REQUEST", "true")
 			},
 		},
 		{
@@ -533,8 +561,8 @@ func TestCI(t *testing.T) {
 				constant: "NEVERCODE",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("NEVERCODE", "true")
-				t.Setenv("NEVERCODE_PULL_REQUEST", "false")
+				setEnv(t, "NEVERCODE", "true")
+				setEnv(t, "NEVERCODE_PULL_REQUEST", "false")
 			},
 		},
 		{
@@ -545,7 +573,7 @@ func TestCI(t *testing.T) {
 				constant: "EAS",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("EAS_BUILD", "1")
+				setEnv(t, "EAS_BUILD", "1")
 			},
 		},
 		{
@@ -556,8 +584,8 @@ func TestCI(t *testing.T) {
 				constant: "GITHUB_ACTIONS",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("GITHUB_ACTIONS", "true")
-				t.Setenv("GITHUB_EVENT_NAME", "pull_request")
+				setEnv(t, "GITHUB_ACTIONS", "true")
+				setEnv(t, "GITHUB_EVENT_NAME", "pull_request")
 			},
 		},
 		{
@@ -568,8 +596,8 @@ func TestCI(t *testing.T) {
 				constant: "GITHUB_ACTIONS",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("GITHUB_ACTIONS", "true")
-				t.Setenv("GITHUB_EVENT_NAME", "push")
+				setEnv(t, "GITHUB_ACTIONS", "true")
+				setEnv(t, "GITHUB_EVENT_NAME", "push")
 			},
 		},
 		{
@@ -580,8 +608,8 @@ func TestCI(t *testing.T) {
 				constant: "SCREWDRIVER",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("SCREWDRIVER", "true")
-				t.Setenv("SD_PULL_REQUEST", "1")
+				setEnv(t, "SCREWDRIVER", "true")
+				setEnv(t, "SD_PULL_REQUEST", "1")
 			},
 		},
 		{
@@ -592,8 +620,8 @@ func TestCI(t *testing.T) {
 				constant: "SCREWDRIVER",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("SCREWDRIVER", "true")
-				t.Setenv("SD_PULL_REQUEST", "false")
+				setEnv(t, "SCREWDRIVER", "true")
+				setEnv(t, "SD_PULL_REQUEST", "false")
 			},
 		},
 		{
@@ -604,7 +632,7 @@ func TestCI(t *testing.T) {
 				constant: "APPCENTER",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("APPCENTER_BUILD_ID", "1")
+				setEnv(t, "APPCENTER_BUILD_ID", "1")
 			},
 		},
 	} {
@@ -613,10 +641,10 @@ func TestCI(t *testing.T) {
 
 			initialize()
 
-			assert.Equal(t, true, IsCI)
-			assert.Equal(t, scenario.expected.isPR, IsPr)
-			assert.Equal(t, scenario.expected.name, Name)
-			assert.Equal(t, true, IsVendor(scenario.expected.constant))
+			assertEqual(t, true, IsCI)
+			assertEqual(t, scenario.expected.isPR, IsPr)
+			assertEqual(t, scenario.expected.name, Name)
+			assertEqual(t, true, IsVendor(scenario.expected.constant))
 			assertVendorConstants(t, scenario.expected.constant)
 		})
 	}

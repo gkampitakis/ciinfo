@@ -1,14 +1,14 @@
 linters:
   enable:
-    - sqlclosecheck
     - unconvert
     - stylecheck
-    - maligned
     - lll
     - ifshort
     - goimports
     - unparam
 
 linters-settings:
+  gocognit:
+    min-complexity: 15
   lll:
-    line-length: 180
+    line-length: 130

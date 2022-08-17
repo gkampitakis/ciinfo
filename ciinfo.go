@@ -48,10 +48,14 @@ func initialize() {
 }
 
 func isCI() bool {
-	_, ci := os.LookupEnv("CI")                                        // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
-	_, continuousIntegration := os.LookupEnv("CONTINUOUS_INTEGRATION") // Travis CI, Cirrus CI
-	_, buildNumber := os.LookupEnv("BUILD_NUMBER")                     // Jenkins, TeamCity
-	_, runID := os.LookupEnv("RUN_ID")                                 // TaskCluster, dsari
+	// Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
+	_, ci := os.LookupEnv("CI")
+	// Travis CI, Cirrus CI
+	_, continuousIntegration := os.LookupEnv("CONTINUOUS_INTEGRATION")
+	// Jenkins, TeamCity
+	_, buildNumber := os.LookupEnv("BUILD_NUMBER")
+	// TaskCluster, dsari
+	_, runID := os.LookupEnv("RUN_ID")
 
 	return ci || continuousIntegration || buildNumber || runID || Name != "" || false
 }
