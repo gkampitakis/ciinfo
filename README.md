@@ -3,7 +3,7 @@
 ## Acknowledgement
 
 This repository is based on work done in [watson/ci-info](https://github.com/watson/ci-info)
-and the contributors. I just migrated this library in Golang.
+and the contributors.
 
 I will do my best to keep this library up to date and in sync with changes in 
 [watson/ci-info](https://github.com/watson/ci-info). 
@@ -119,7 +119,7 @@ complete list, see the support table above.
 Deprecated vendor constants that will be removed in the next major
 release:
 
-- `ciinfo.IsVendor("TDDIUM")` (Solano CI) This have been renamed `ciinfo.IsVendor("SOLANO")`
+- `ciinfo.IsVendor("TDDIUM")` (Solano CI) This has been renamed `ciinfo.IsVendor("SOLANO")`
 
 ## License
 
