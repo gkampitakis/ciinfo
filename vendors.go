@@ -334,4 +334,15 @@ var vendors = []vendor{
 		constant: "APPCENTER",
 		env:      []env{{key: "APPCENTER_BUILD_ID"}},
 	},
+	{
+		name:     "Xcode Cloud",
+		constant: "XCODE_CLOUD",
+		env:      []env{{key: "CI_XCODE_PROJECT"}},
+		pr:       []pr{{key: "CI_PULL_REQUEST_NUMBER"}},
+	},
+	{
+		name:     "Xcode Server",
+		constant: "XCODE_SERVER",
+		env:      []env{{key: "XCS"}},
+	},
 }

@@ -4,10 +4,12 @@ import (
 	"os"
 )
 
-var Name string
-var IsPr bool
-var IsCI bool
-var vendorsIsCI map[string]bool
+var (
+	Name        string
+	IsPr        bool
+	IsCI        bool
+	vendorsIsCI map[string]bool
+)
 
 func init() {
 	initialize()

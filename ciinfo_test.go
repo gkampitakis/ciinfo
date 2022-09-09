@@ -46,7 +46,8 @@ func assertVendorConstants(t *testing.T, expected string) {
 
 	for _, vendor := range vendors {
 		boolean := vendor.constant == expected
-		boolean = expected == "SOLANO" && vendor.constant == "TDDIUM" || boolean // support deprecated option
+		boolean = expected == "SOLANO" && vendor.constant == "TDDIUM" ||
+			boolean // support deprecated option
 
 		assertEqual(t, boolean, vendorsIsCI[vendor.constant], "ci."+vendor.constant)
 	}
@@ -69,7 +70,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 37, len(vendors), "We should have 37 vendors")
+		assertEqual(t, 39, len(vendors), "We should have 39 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -633,6 +634,40 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				setEnv(t, "APPCENTER_BUILD_ID", "1")
+			},
+		},
+		{
+			description: "Xcode Cloud",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Xcode Cloud",
+				constant: "XCODE_CLOUD",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "CI_XCODE_PROJECT", "1")
+			},
+		},
+		{
+			description: "Xcode Cloud - PR",
+			expected: ScenarioExpected{
+				isPR:     true,
+				name:     "Xcode Cloud",
+				constant: "XCODE_CLOUD",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "CI_XCODE_PROJECT", "1")
+				setEnv(t, "CI_PULL_REQUEST_NUMBER", "1")
+			},
+		},
+		{
+			description: "Xcode Server",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Xcode Server",
+				constant: "XCODE_SERVER",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "XCS", "1")
 			},
 		},
 	} {
