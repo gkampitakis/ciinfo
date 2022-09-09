@@ -88,15 +88,28 @@ func TestCI(t *testing.T) {
 		assertVendorConstants(t, "")
 	})
 
-	t.Run("Unknown CI", func(t *testing.T) {
-		setEnv(t, "CI", "true")
+	t.Run("Anonymous CI", func(t *testing.T) {
+		envKeys := []string{
+			"CI",                     // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
+			"CONTINUOUS_INTEGRATION", // Travis CI, Cirrus CI
+			"BUILD_NUMBER",           // Jenkins, TeamCity
+			"CI_APP_ID",              // Applfow
+			"CI_BUILD_ID",            // Applfow
+			"CI_BUILD_NUMBER",        // Applfow
+		}
 
-		initialize()
+		for _, key := range envKeys {
+			t.Run(key, func(t *testing.T) {
+				setEnv(t, key, "true")
 
-		assertEqual(t, true, IsCI)
-		assertEqual(t, false, IsPr)
-		assertEqual(t, "", Name)
-		assertVendorConstants(t, "")
+				initialize()
+
+				assertEqual(t, true, IsCI)
+				assertEqual(t, false, IsPr)
+				assertEqual(t, "", Name)
+				assertVendorConstants(t, "")
+			})
+		}
 	})
 
 	t.Run("Not Codeship", func(t *testing.T) {

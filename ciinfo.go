@@ -50,16 +50,23 @@ func initialize() {
 }
 
 func isCI() bool {
-	// Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
-	_, ci := os.LookupEnv("CI")
-	// Travis CI, Cirrus CI
-	_, continuousIntegration := os.LookupEnv("CONTINUOUS_INTEGRATION")
-	// Jenkins, TeamCity
-	_, buildNumber := os.LookupEnv("BUILD_NUMBER")
-	// TaskCluster, dsari
-	_, runID := os.LookupEnv("RUN_ID")
+	envKeys := []string{
+		"CI",                     // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
+		"CONTINUOUS_INTEGRATION", // Travis CI, Cirrus CI
+		"BUILD_NUMBER",           // Jenkins, TeamCity
+		"RUN_ID",                 // TaskCluster, dsari
+		"CI_APP_ID",              // Applfow
+		"CI_BUILD_ID",            // Applfow
+		"CI_BUILD_NUMBER",        // Applfow
+	}
 
-	return ci || continuousIntegration || buildNumber || runID || Name != "" || false
+	for _, key := range envKeys {
+		if _, exists := os.LookupEnv(key); exists {
+			return true
+		}
+	}
+
+	return Name != ""
 }
 
 func IsVendor(vendor string) bool {
