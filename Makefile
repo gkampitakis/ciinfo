@@ -1,4 +1,4 @@
-.PHONY: install-tools lint test test-verbose format benchmark
+.PHONY: install-tools lint test test-verbose format
 
 install-tools:
 	# Install linting tools
@@ -18,6 +18,3 @@ test:
 
 test-verbose:
 	go test -race -test.timeout 120s -v -cover -count=1 ./...
-
-benchmark:
-	go test -bench=. -benchmem ./...

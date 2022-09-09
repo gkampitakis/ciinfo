@@ -111,6 +111,12 @@ var vendors = []vendor{
 		},
 	},
 	{
+		name:     "Codemagic",
+		constant: "CODEMAGIC",
+		env:      []env{{key: "CM_BUILD_ID"}},
+		pr:       []pr{{key: "CM_PULL_REQUEST"}},
+	},
+	{
 		name:     "AWS CodeBuild",
 		constant: "CODEBUILD",
 		env:      []env{{key: "CODEBUILD_BUILD_ARN"}},

@@ -70,7 +70,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 39, len(vendors), "We should have 39 vendors")
+		assertEqual(t, 40, len(vendors), "We should have 40 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -261,6 +261,29 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				setEnv(t, "CIRRUS_CI", "true")
+			},
+		},
+		{
+			description: "Codemagic - PR",
+			expected: ScenarioExpected{
+				isPR:     true,
+				name:     "Codemagic",
+				constant: "CODEMAGIC",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "CM_BUILD_ID", "true")
+				setEnv(t, "CM_PULL_REQUEST", "42")
+			},
+		},
+		{
+			description: "Codemagic - Not PR",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Codemagic",
+				constant: "CODEMAGIC",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "CM_BUILD_ID", "true")
 			},
 		},
 		{
@@ -650,7 +673,7 @@ func TestCI(t *testing.T) {
 			},
 		},
 		{
-			description: "Xcode Cloud",
+			description: "Xcode Cloud - Not PR",
 			expected: ScenarioExpected{
 				isPR:     false,
 				name:     "Xcode Cloud",
