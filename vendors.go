@@ -351,4 +351,10 @@ var vendors = []vendor{
 		constant: "XCODE_SERVER",
 		env:      []env{{key: "XCS"}},
 	},
+	{
+		name:     "Woodpecker",
+		constant: "WOODPECKER",
+		env:      []env{{key: "CI", eq: "woodpecker"}},
+		pr:       []pr{{key: "CI_BUILD_EVENT", eq: "pull_request"}},
+	},
 }

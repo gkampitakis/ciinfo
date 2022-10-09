@@ -70,7 +70,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 40, len(vendors), "We should have 40 vendors")
+		assertEqual(t, 41, len(vendors), "We should have 41 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -122,7 +122,6 @@ func TestCI(t *testing.T) {
 		assertEqual(t, "", Name)
 		assertEqual(t, false, IsVendor("CODESHIP"))
 	})
-
 	for _, scenario := range []TestScenario{
 		{
 			description: "AppVeyor - PR",
@@ -704,6 +703,29 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				setEnv(t, "XCS", "1")
+			},
+		},
+		{
+			description: "Woodpecker - PR",
+			expected: ScenarioExpected{
+				isPR:     true,
+				name:     "Woodpecker",
+				constant: "WOODPECKER",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "CI", "woodpecker")
+				setEnv(t, "CI_BUILD_EVENT", "pull_request")
+			},
+		},
+		{
+			description: "Woodpecker",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Woodpecker",
+				constant: "WOODPECKER",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "CI", "woodpecker")
 			},
 		},
 	} {
