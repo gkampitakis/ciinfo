@@ -7,18 +7,26 @@ type pr struct {
 }
 
 type env struct {
-	key string
-	eq  string
+	key      string
+	eq       string
+	includes string
 }
 
 type vendor struct {
 	name     string
 	constant string
-	env      []env
-	pr       []pr
+	// if multiple keys on env only one is needed
+	anyEnv bool
+	env    []env
+	pr     []pr
 }
 
 var vendors = []vendor{
+	{
+		name:     "Appcircle",
+		constant: "APPCIRCLE",
+		env:      []env{{key: "AC_APPCIRCLE"}},
+	},
 	{
 		name:     "AppVeyor",
 		constant: "APPVEYOR",
@@ -30,19 +38,15 @@ var vendors = []vendor{
 		},
 	},
 	{
+		name:     "AWS CodeBuild",
+		constant: "CODEBUILD",
+		env:      []env{{key: "CODEBUILD_BUILD_ARN"}},
+	},
+	{
 		name:     "Azure Pipelines",
 		constant: "AZURE_PIPELINES",
 		env:      []env{{key: "SYSTEM_TEAMFOUNDATIONCOLLECTIONURI"}},
-		pr: []pr{
-			{
-				key: "SYSTEM_PULLREQUEST_PULLREQUESTID",
-			},
-		},
-	},
-	{
-		name:     "Appcircle",
-		constant: "APPCIRCLE",
-		env:      []env{{key: "AC_APPCIRCLE"}},
+		pr:       []pr{{key: "SYSTEM_PULLREQUEST_PULLREQUESTID"}},
 	},
 	{
 		name:     "Bamboo",
@@ -104,10 +108,15 @@ var vendors = []vendor{
 		name:     "Cirrus CI",
 		constant: "CIRRUS",
 		env:      []env{{key: "CIRRUS_CI"}},
+		pr:       []pr{{key: "CIRRUS_PR"}},
+	},
+	{
+		name:     "Codefresh",
+		constant: "CODEFRESH",
+		env:      []env{{key: "CF_BUILD_ID"}},
 		pr: []pr{
-			{
-				key: "CIRRUS_PR",
-			},
+			{key: "CF_PULL_REQUEST_NUMBER"},
+			{key: "CF_PULL_REQUEST_ID"},
 		},
 	},
 	{
@@ -115,24 +124,6 @@ var vendors = []vendor{
 		constant: "CODEMAGIC",
 		env:      []env{{key: "CM_BUILD_ID"}},
 		pr:       []pr{{key: "CM_PULL_REQUEST"}},
-	},
-	{
-		name:     "AWS CodeBuild",
-		constant: "CODEBUILD",
-		env:      []env{{key: "CODEBUILD_BUILD_ARN"}},
-	},
-	{
-		name:     "Codefresh",
-		constant: "CODEFRESH",
-		env:      []env{{key: "CF_BUILD_ID"}},
-		pr: []pr{
-			{
-				key: "CF_PULL_REQUEST_NUMBER",
-			},
-			{
-				key: "CF_PULL_REQUEST_ID",
-			},
-		},
 	},
 	{
 		name:     "Codeship",
@@ -161,6 +152,11 @@ var vendors = []vendor{
 		env:      []env{{key: "EAS_BUILD"}},
 	},
 	{
+		name:     "Gerrit",
+		constant: "GERRIT",
+		env:      []env{{key: "GERRIT_PROJECT"}},
+	},
+	{
 		name:     "GitHub Actions",
 		constant: "GITHUB_ACTIONS",
 		env:      []env{{key: "GITHUB_ACTIONS"}},
@@ -187,19 +183,19 @@ var vendors = []vendor{
 		env:      []env{{key: "GO_PIPELINE_LABEL"}},
 	},
 	{
-		name:     "LayerCI",
-		constant: "LAYERCI",
-		env:      []env{{key: "LAYERCI"}},
-		pr: []pr{
-			{
-				key: "LAYERCI_PULL_REQUEST",
-			},
-		},
+		name:     "Google Cloud Build",
+		constant: "GOOGLE_CLOUD_BUILD",
+		env:      []env{{key: "BUILDER_OUTPUT"}},
 	},
 	{
 		name:     "Hudson",
 		constant: "HUDSON",
 		env:      []env{{key: "HUDSON_URL"}},
+	},
+	{
+		name:     "Heroku",
+		constant: "HEROKU",
+		env:      []env{{key: "NODE", includes: "/app/.heroku/node/bin/node"}},
 	},
 	{
 		name:     "Jenkins",
@@ -211,6 +207,16 @@ var vendors = []vendor{
 			},
 			{
 				key: "CHANGE_ID",
+			},
+		},
+	},
+	{
+		name:     "LayerCI",
+		constant: "LAYERCI",
+		env:      []env{{key: "LAYERCI"}},
+		pr: []pr{
+			{
+				key: "LAYERCI_PULL_REQUEST",
 			},
 		},
 	},
@@ -263,16 +269,6 @@ var vendors = []vendor{
 		},
 	},
 	{
-		name:     "Semaphore",
-		constant: "SEMAPHORE",
-		env:      []env{{key: "SEMAPHORE"}},
-		pr: []pr{
-			{
-				key: "PULL_REQUEST_NUMBER",
-			},
-		},
-	},
-	{
 		name:     "Screwdriver",
 		constant: "SCREWDRIVER",
 		env:      []env{{key: "SCREWDRIVER"}},
@@ -280,6 +276,16 @@ var vendors = []vendor{
 			{
 				key: "SD_PULL_REQUEST",
 				ne:  "false",
+			},
+		},
+	},
+	{
+		name:     "Semaphore",
+		constant: "SEMAPHORE",
+		env:      []env{{key: "SEMAPHORE"}},
+		pr: []pr{
+			{
+				key: "PULL_REQUEST_NUMBER",
 			},
 		},
 	},
@@ -333,12 +339,19 @@ var vendors = []vendor{
 	{
 		name:     "Vercel",
 		constant: "VERCEL",
-		env:      []env{{key: "NOW_BUILDER"}},
+		anyEnv:   true,
+		env:      []env{{key: "NOW_BUILDER"}, {key: "VERCEL_URL"}},
 	},
 	{
 		name:     "Visual Studio App Center",
 		constant: "APPCENTER",
 		env:      []env{{key: "APPCENTER_BUILD_ID"}},
+	},
+	{
+		name:     "Woodpecker",
+		constant: "WOODPECKER",
+		env:      []env{{key: "CI", eq: "woodpecker"}},
+		pr:       []pr{{key: "CI_BUILD_EVENT", eq: "pull_request"}},
 	},
 	{
 		name:     "Xcode Cloud",
@@ -350,11 +363,5 @@ var vendors = []vendor{
 		name:     "Xcode Server",
 		constant: "XCODE_SERVER",
 		env:      []env{{key: "XCS"}},
-	},
-	{
-		name:     "Woodpecker",
-		constant: "WOODPECKER",
-		env:      []env{{key: "CI", eq: "woodpecker"}},
-		pr:       []pr{{key: "CI_BUILD_EVENT", eq: "pull_request"}},
 	},
 }

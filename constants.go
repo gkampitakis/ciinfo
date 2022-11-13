@@ -2,14 +2,17 @@ package ciinfo
 
 // This file is generated. Run `make compile-constants` to update.
 
+// CI is running on Appcircle
+var APPCIRCLE = vendorsIsCI["APPCIRCLE"]
+
 // CI is running on AppVeyor
 var APPVEYOR = vendorsIsCI["APPVEYOR"]
 
+// CI is running on AWS CodeBuild
+var CODEBUILD = vendorsIsCI["CODEBUILD"]
+
 // CI is running on Azure Pipelines
 var AZURE_PIPELINES = vendorsIsCI["AZURE_PIPELINES"]
-
-// CI is running on Appcircle
-var APPCIRCLE = vendorsIsCI["APPCIRCLE"]
 
 // CI is running on Bamboo
 var BAMBOO = vendorsIsCI["BAMBOO"]
@@ -32,14 +35,11 @@ var CIRCLE = vendorsIsCI["CIRCLE"]
 // CI is running on Cirrus CI
 var CIRRUS = vendorsIsCI["CIRRUS"]
 
-// CI is running on Codemagic
-var CODEMAGIC = vendorsIsCI["CODEMAGIC"]
-
-// CI is running on AWS CodeBuild
-var CODEBUILD = vendorsIsCI["CODEBUILD"]
-
 // CI is running on Codefresh
 var CODEFRESH = vendorsIsCI["CODEFRESH"]
+
+// CI is running on Codemagic
+var CODEMAGIC = vendorsIsCI["CODEMAGIC"]
 
 // CI is running on Codeship
 var CODESHIP = vendorsIsCI["CODESHIP"]
@@ -53,6 +53,9 @@ var DSARI = vendorsIsCI["DSARI"]
 // CI is running on Expo Application Services
 var EAS = vendorsIsCI["EAS"]
 
+// CI is running on Gerrit
+var GERRIT = vendorsIsCI["GERRIT"]
+
 // CI is running on GitHub Actions
 var GITHUB_ACTIONS = vendorsIsCI["GITHUB_ACTIONS"]
 
@@ -62,14 +65,20 @@ var GITLAB = vendorsIsCI["GITLAB"]
 // CI is running on GoCD
 var GOCD = vendorsIsCI["GOCD"]
 
-// CI is running on LayerCI
-var LAYERCI = vendorsIsCI["LAYERCI"]
+// CI is running on Google Cloud Build
+var GOOGLE_CLOUD_BUILD = vendorsIsCI["GOOGLE_CLOUD_BUILD"]
 
 // CI is running on Hudson
 var HUDSON = vendorsIsCI["HUDSON"]
 
+// CI is running on Heroku
+var HEROKU = vendorsIsCI["HEROKU"]
+
 // CI is running on Jenkins
 var JENKINS = vendorsIsCI["JENKINS"]
+
+// CI is running on LayerCI
+var LAYERCI = vendorsIsCI["LAYERCI"]
 
 // CI is running on Magnum CI
 var MAGNUM = vendorsIsCI["MAGNUM"]
@@ -86,11 +95,11 @@ var RENDER = vendorsIsCI["RENDER"]
 // CI is running on Sail CI
 var SAIL = vendorsIsCI["SAIL"]
 
-// CI is running on Semaphore
-var SEMAPHORE = vendorsIsCI["SEMAPHORE"]
-
 // CI is running on Screwdriver
 var SCREWDRIVER = vendorsIsCI["SCREWDRIVER"]
+
+// CI is running on Semaphore
+var SEMAPHORE = vendorsIsCI["SEMAPHORE"]
 
 // CI is running on Shippable
 var SHIPPABLE = vendorsIsCI["SHIPPABLE"]
@@ -116,11 +125,11 @@ var VERCEL = vendorsIsCI["VERCEL"]
 // CI is running on Visual Studio App Center
 var APPCENTER = vendorsIsCI["APPCENTER"]
 
+// CI is running on Woodpecker
+var WOODPECKER = vendorsIsCI["WOODPECKER"]
+
 // CI is running on Xcode Cloud
 var XCODE_CLOUD = vendorsIsCI["XCODE_CLOUD"]
 
 // CI is running on Xcode Server
 var XCODE_SERVER = vendorsIsCI["XCODE_SERVER"]
-
-// CI is running on Woodpecker
-var WOODPECKER = vendorsIsCI["WOODPECKER"]

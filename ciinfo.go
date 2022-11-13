@@ -2,6 +2,7 @@ package ciinfo
 
 import (
 	"os"
+	"strings"
 )
 
 var (
@@ -24,6 +25,15 @@ func everyEnv(envs []env, check func(env) bool) bool {
 	return true
 }
 
+func anyEnv(envs []env, check func(env) bool) bool {
+	for _, env := range envs {
+		if check(env) {
+			return true
+		}
+	}
+	return false
+}
+
 func initialize() {
 	vendorsIsCI = make(map[string]bool)
 	IsPr = false
@@ -31,7 +41,11 @@ func initialize() {
 	Name = ""
 
 	for _, vendor := range vendors {
-		isVendor := everyEnv(vendor.env, verifyCI)
+		checkEnvs := everyEnv
+		if vendor.anyEnv {
+			checkEnvs = anyEnv
+		}
+		isVendor := checkEnvs(vendor.env, verifyCI)
 		vendorsIsCI[vendor.constant] = isVendor
 		if !isVendor {
 			continue
@@ -51,13 +65,15 @@ func initialize() {
 
 func isCI() bool {
 	envKeys := []string{
-		"CI",                     // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
-		"CONTINUOUS_INTEGRATION", // Travis CI, Cirrus CI
+		"BUILD_ID",               // Jenkins, Cloudbees
 		"BUILD_NUMBER",           // Jenkins, TeamCity
+		"CI",                     // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
+		"CI_APP_ID",              // Appflow
+		"CI_BUILD_ID",            // Appflow
+		"CI_BUILD_NUMBER",        // Appflow
+		"CI_NAME",                // Codeship and others
+		"CONTINUOUS_INTEGRATION", // Travis CI, Cirrus CI
 		"RUN_ID",                 // TaskCluster, dsari
-		"CI_APP_ID",              // Applfow
-		"CI_BUILD_ID",            // Applfow
-		"CI_BUILD_NUMBER",        // Applfow
 	}
 
 	for _, key := range envKeys {
@@ -77,6 +93,10 @@ func verifyCI(e env) bool {
 	value, exists := os.LookupEnv(e.key)
 
 	if !exists {
+		return false
+	}
+
+	if e.includes != "" && !strings.Contains(value, e.includes) {
 		return false
 	}
 
