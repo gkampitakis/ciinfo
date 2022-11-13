@@ -26,6 +26,11 @@ jobs:
         with:
           version: "latest"
           args: -c ./golangci.yml
+      - name: Format lint
+        run: |
+          make install-tools && make format && git diff --quiet
+      - name: Stale constants
+        run: make compile-constants && git diff --quiet
 
   test:
     name: Run tests
@@ -40,4 +45,4 @@ jobs:
         with:
           go-version: ${{matrix.go}}
       - name: Run Tests
-        run: go test -cover -race -v ./...
+        run: make test
