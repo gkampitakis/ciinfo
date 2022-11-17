@@ -15,6 +15,15 @@ func init() {
 	initialize()
 }
 
+func everyEnv(envs []env, check func(env) bool) bool {
+	for _, e := range envs {
+		if !check(e) {
+			return false
+		}
+	}
+	return true
+}
+
 func initialize() {
 	vendorsIsCI = make(map[string]bool)
 	IsPr = false
@@ -22,31 +31,22 @@ func initialize() {
 	Name = ""
 
 	for _, vendor := range vendors {
-		envKeys := vendor.env
-		vendorsIsCI[vendor.constant] = false
-
-		for _, env := range envKeys {
-			if verifyCI(env) {
-				vendorsIsCI[vendor.constant] = true
-				break
-			}
-		}
-
-		if !vendorsIsCI[vendor.constant] {
+		isVendor := everyEnv(vendor.env, verifyCI)
+		vendorsIsCI[vendor.constant] = isVendor
+		if !isVendor {
 			continue
 		}
 
 		Name = vendor.name
 
 		for _, pr := range vendor.pr {
-			IsPr = verifyPr(pr)
-			if IsPr {
+			if IsPr = verifyPr(pr); IsPr {
 				break
 			}
 		}
 	}
 
-	IsCI = isCI()
+	IsCI = Name != "" || isCI()
 }
 
 func isCI() bool {
@@ -66,7 +66,7 @@ func isCI() bool {
 		}
 	}
 
-	return Name != ""
+	return false
 }
 
 func IsVendor(vendor string) bool {
