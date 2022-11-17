@@ -1,4 +1,4 @@
-.PHONY: install-tools lint test test-verbose format help
+.PHONY: install-tools lint test test-verbose format help compile-constants
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -16,7 +16,12 @@ format: ## Format code
 	golines . -w
 
 test: ## Run tests
-	go test -race -test.timeout 120s -count=1 ./...
+	go test -race -test.timeout 120s -count=1 .
 
 test-verbose: ## Run tests with verbose output
-	go test -race -test.timeout 120s -v -cover -count=1 ./...
+	go test -race -test.timeout 120s -v -cover -count=1 .
+
+compile-constants: ## Generates 'constants.go' containing the list with constant values
+	cp vendors.go compile-constants
+	sed -i 's/ciinfo/main/' compile-constants/vendors.go
+	go run ./compile-constants/main.go ./compile-constants/vendors.go
