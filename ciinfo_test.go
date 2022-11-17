@@ -375,6 +375,7 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				setEnv(t, "JENKINS_URL", "true")
+				setEnv(t, "BUILD_ID", "true")
 				setEnv(t, "ghprbPullId", "true")
 			},
 		},
@@ -386,6 +387,7 @@ func TestCI(t *testing.T) {
 				constant: "JENKINS",
 			},
 			setup: func(t *testing.T) {
+				setEnv(t, "JENKINS_URL", "true")
 				setEnv(t, "BUILD_ID", "true")
 				setEnv(t, "CHANGE_ID", "true")
 			},
@@ -398,6 +400,7 @@ func TestCI(t *testing.T) {
 				constant: "JENKINS",
 			},
 			setup: func(t *testing.T) {
+				setEnv(t, "JENKINS_URL", "true")
 				setEnv(t, "BUILD_ID", "true")
 			},
 		},
