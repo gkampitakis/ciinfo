@@ -70,7 +70,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 41, len(vendors), "We should have 41 vendors")
+		assertEqual(t, 44, len(vendors), "We should have 44 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -90,12 +90,15 @@ func TestCI(t *testing.T) {
 
 	t.Run("Anonymous CI", func(t *testing.T) {
 		envKeys := []string{
-			"CI",                     // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
-			"CONTINUOUS_INTEGRATION", // Travis CI, Cirrus CI
+			"BUILD_ID",               // Jenkins, Cloudbees
 			"BUILD_NUMBER",           // Jenkins, TeamCity
-			"CI_APP_ID",              // Applfow
-			"CI_BUILD_ID",            // Applfow
-			"CI_BUILD_NUMBER",        // Applfow
+			"CI",                     // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
+			"CI_APP_ID",              // Appflow
+			"CI_BUILD_ID",            // Appflow
+			"CI_BUILD_NUMBER",        // Appflow
+			"CI_NAME",                // Codeship and others
+			"CONTINUOUS_INTEGRATION", // Travis CI, Cirrus CI
+			"RUN_ID",                 // TaskCluster, dsari
 		}
 
 		for _, key := range envKeys {
@@ -112,16 +115,6 @@ func TestCI(t *testing.T) {
 		}
 	})
 
-	t.Run("Not Codeship", func(t *testing.T) {
-		setEnv(t, "CI_NAME", "invalid")
-
-		initialize()
-
-		assertEqual(t, false, IsCI)
-		assertEqual(t, false, IsPr)
-		assertEqual(t, "", Name)
-		assertEqual(t, false, IsVendor("CODESHIP"))
-	})
 	for _, scenario := range []TestScenario{
 		{
 			description: "AppVeyor - PR",
@@ -570,7 +563,7 @@ func TestCI(t *testing.T) {
 			},
 		},
 		{
-			description: "Vercel",
+			description: "Vercel - NOW_BUILDER",
 			expected: ScenarioExpected{
 				isPR:     false,
 				name:     "Vercel",
@@ -578,6 +571,17 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				setEnv(t, "NOW_BUILDER", "1")
+			},
+		},
+		{
+			description: "Vercel - VERCEL_URL",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Vercel",
+				constant: "VERCEL",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "VERCEL_URL", "1")
 			},
 		},
 		{
@@ -729,6 +733,39 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				setEnv(t, "CI", "woodpecker")
+			},
+		},
+		{
+			description: "Heroku",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Heroku",
+				constant: "HEROKU",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "NODE", "/extra/content/app/.heroku/node/bin/node --extra --content")
+			},
+		},
+		{
+			description: "Gerrit",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Gerrit",
+				constant: "GERRIT",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "GERRIT_PROJECT", "1")
+			},
+		},
+		{
+			description: "Google Cloud Build",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Google Cloud Build",
+				constant: "GOOGLE_CLOUD_BUILD",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "BUILDER_OUTPUT", "1")
 			},
 		},
 	} {
