@@ -574,14 +574,14 @@ func TestCI(t *testing.T) {
 			},
 		},
 		{
-			description: "Vercel - VERCEL_URL",
+			description: "Vercel - VERCEL",
 			expected: ScenarioExpected{
 				isPR:     false,
 				name:     "Vercel",
 				constant: "VERCEL",
 			},
 			setup: func(t *testing.T) {
-				setEnv(t, "VERCEL_URL", "1")
+				setEnv(t, "VERCEL", "1")
 			},
 		},
 		{

@@ -340,7 +340,7 @@ var vendors = []vendor{
 		name:     "Vercel",
 		constant: "VERCEL",
 		anyEnv:   true,
-		env:      []env{{key: "NOW_BUILDER"}, {key: "VERCEL_URL"}},
+		env:      []env{{key: "NOW_BUILDER"}, {key: "VERCEL"}},
 	},
 	{
 		name:     "Visual Studio App Center",
