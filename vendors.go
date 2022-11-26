@@ -237,6 +237,11 @@ var vendors = []vendor{
 		},
 	},
 	{
+		name:     "ReleaseHub",
+		constant: "RELEASEHUB",
+		env:      []env{{key: "RELEASE_BUILD_ID"}},
+	},
+	{
 		name:     "Nevercode",
 		constant: "NEVERCODE",
 		env:      []env{{key: "NEVERCODE"}},
@@ -309,6 +314,11 @@ var vendors = []vendor{
 				key: "TDDIUM_PR_ID",
 			},
 		},
+	},
+	{
+		name:     "Sourcehut",
+		constant: "SOURCEHUT",
+		env:      []env{{key: "CI_NAME", eq: "sourcehut"}},
 	},
 	{
 		name:     "Strider CD",

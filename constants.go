@@ -86,6 +86,9 @@ var MAGNUM = vendorsIsCI["MAGNUM"]
 // CI is running on Netlify CI
 var NETLIFY = vendorsIsCI["NETLIFY"]
 
+// CI is running on ReleaseHub
+var RELEASEHUB = vendorsIsCI["RELEASEHUB"]
+
 // CI is running on Nevercode
 var NEVERCODE = vendorsIsCI["NEVERCODE"]
 
@@ -106,6 +109,9 @@ var SHIPPABLE = vendorsIsCI["SHIPPABLE"]
 
 // CI is running on Solano CI
 var SOLANO = vendorsIsCI["SOLANO"]
+
+// CI is running on Sourcehut
+var SOURCEHUT = vendorsIsCI["SOURCEHUT"]
 
 // CI is running on Strider CD
 var STRIDER = vendorsIsCI["STRIDER"]

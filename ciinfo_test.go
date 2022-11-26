@@ -70,7 +70,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 44, len(vendors), "We should have 44 vendors")
+		assertEqual(t, 46, len(vendors), "We should have 46 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -515,6 +515,17 @@ func TestCI(t *testing.T) {
 			},
 		},
 		{
+			description: "Sourcehut",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Sourcehut",
+				constant: "SOURCEHUT",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "CI_NAME", "sourcehut")
+			},
+		},
+		{
 			description: "Travis CI - PR",
 			expected: ScenarioExpected{
 				isPR:     true,
@@ -560,6 +571,17 @@ func TestCI(t *testing.T) {
 			setup: func(t *testing.T) {
 				setEnv(t, "NETLIFY", "true")
 				setEnv(t, "PULL_REQUEST", "false")
+			},
+		},
+		{
+			description: "ReleaseHub",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "ReleaseHub",
+				constant: "RELEASEHUB",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "RELEASE_BUILD_ID", "")
 			},
 		},
 		{
