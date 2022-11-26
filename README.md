@@ -40,49 +40,51 @@ if ciinfo.IsCI {
 
 Officially supported CI servers:
 
-| Name                                                                            | Constant                | isPR |
-| ------------------------------------------------------------------------------- | --------------------    | ---- |
-| [AWS CodeBuild](https://aws.amazon.com/codebuild/)                              | `ci.CODEBUILD`          | 🚫   |
-| [AppVeyor](http://www.appveyor.com)                                             | `ci.APPVEYOR`           | ✅   |
-| [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) | `ci.AZURE_PIPELINES`    | ✅   |
-| [Appcircle](https://appcircle.io/)                                              | `ci.APPCIRCLE`          | 🚫   |
-| [Bamboo](https://www.atlassian.com/software/bamboo) by Atlassian                | `ci.BAMBOO`             | 🚫   |
-| [Bitbucket Pipelines](https://bitbucket.org/product/features/pipelines)         | `ci.BITBUCKET`          | ✅   |
-| [Bitrise](https://www.bitrise.io/)                                              | `ci.BITRISE`            | ✅   |
-| [Buddy](https://buddy.works/)                                                   | `ci.BUDDY`              | ✅   |
-| [Buildkite](https://buildkite.com)                                              | `ci.BUILDKITE`          | ✅   |
-| [CircleCI](http://circleci.com)                                                 | `ci.CIRCLE`             | ✅   |
-| [Cirrus CI](https://cirrus-ci.org)                                              | `ci.CIRRUS`             | ✅   |
-| [Codefresh](https://codefresh.io/)                                              | `ci.CODEFRESH`          | ✅   |
-| [Codeship](https://codeship.com)                                                | `ci.CODESHIP`           | 🚫   |
-| [Drone](https://drone.io)                                                       | `ci.DRONE`              | ✅   |
-| [dsari](https://github.com/rfinnie/dsari)                                       | `ci.DSARI`              | 🚫   |
-| [Expo Application Services](https://expo.dev/eas)                               | `ci.EAS`                | 🚫   |
-| [Gerrit CI](https://www.gerritcodereview.com)                                   | `ci.GERRIT`             | 🚫   |
-| [GitHub Actions](https://github.com/features/actions/)                          | `ci.GITHUB_ACTIONS`     | ✅   |
-| [GitLab CI](https://about.gitlab.com/gitlab-ci/)                                | `ci.GITLAB`             | ✅   |
-| [GoCD](https://www.go.cd/)                                                      | `ci.GOCD`               | 🚫   |
-| [Google Cloud Build](https://cloud.google.com/build)                            | `ci.GOOGLE_CLOUD_BUILD` | 🚫   |
-| [Heroku](https://www.heroku.com)                                                | `ci.HEROKU`             | 🚫   |
-| [Hudson](http://hudson-ci.org)                                                  | `ci.HUDSON`             | 🚫   |
-| [Jenkins CI](https://jenkins-ci.org)                                            | `ci.JENKINS`            | ✅   |
-| [LayerCI](https://layerci.com/)                                                 | `ci.LAYERCI`            | ✅   |
-| [Magnum CI](https://magnum-ci.com)                                              | `ci.MAGNUM`             | 🚫   |
-| [Netlify CI](https://www.netlify.com/)                                          | `ci.NETLIFY`            | ✅   |
-| [Nevercode](http://nevercode.io/)                                               | `ci.NEVERCODE`          | ✅   |
-| [Render](https://render.com/)                                                   | `ci.RENDER`             | ✅   |
-| [Sail CI](https://sail.ci/)                                                     | `ci.SAIL`               | ✅   |
-| [Screwdriver](https://screwdriver.cd/)                                          | `ci.SCREWDRIVER`        | ✅   |
-| [Semaphore](https://semaphoreci.com)                                            | `ci.SEMAPHORE`          | ✅   |
-| [Shippable](https://www.shippable.com/)                                         | `ci.SHIPPABLE`          | ✅   |
-| [Solano CI](https://www.solanolabs.com/)                                        | `ci.SOLANO`             | ✅   |
-| [Strider CD](https://strider-cd.github.io/)                                     | `ci.STRIDER`            | 🚫   |
-| [TaskCluster](http://docs.taskcluster.net)                                      | `ci.TASKCLUSTER`        | 🚫   |
-| [TeamCity](https://www.jetbrains.com/teamcity/) by JetBrains                    | `ci.TEAMCITY`           | 🚫   |
-| [Travis CI](http://travis-ci.org)                                               | `ci.TRAVIS`             | ✅   |
-| [Vercel](https://vercel.com/)                                                   | `ci.VERCEL`             | 🚫   |
-| [Visual Studio App Center](https://appcenter.ms/)                               | `ci.APPCENTER`          | 🚫   |
-| [Woodpecker](https://woodpecker-ci.org/)                                        | `ci.WOODPECKER`         | ✅   |
+| Name                                                                            | Constant                    | isPR |
+| ------------------------------------------------------------------------------- | --------------------------- | ---- |
+| [AWS CodeBuild](https://aws.amazon.com/codebuild/)                              | `ciinfo.CODEBUILD`          | 🚫   |
+| [AppVeyor](http://www.appveyor.com)                                             | `ciinfo.APPVEYOR`           | ✅   |
+| [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) | `ciinfo.AZURE_PIPELINES`    | ✅   |
+| [Appcircle](https://appcircle.io/)                                              | `ciinfo.APPCIRCLE`          | 🚫   |
+| [Bamboo](https://www.atlassian.com/software/bamboo) by Atlassian                | `ciinfo.BAMBOO`             | 🚫   |
+| [Bitbucket Pipelines](https://bitbucket.org/product/features/pipelines)         | `ciinfo.BITBUCKET`          | ✅   |
+| [Bitrise](https://www.bitrise.io/)                                              | `ciinfo.BITRISE`            | ✅   |
+| [Buddy](https://buddy.works/)                                                   | `ciinfo.BUDDY`              | ✅   |
+| [Buildkite](https://buildkite.com)                                              | `ciinfo.BUILDKITE`          | ✅   |
+| [CircleCI](http://circleci.com)                                                 | `ciinfo.CIRCLE`             | ✅   |
+| [Cirrus CI](https://cirrus-ci.org)                                              | `ciinfo.CIRRUS`             | ✅   |
+| [Codefresh](https://codefresh.io/)                                              | `ciinfo.CODEFRESH`          | ✅   |
+| [Codeship](https://codeship.com)                                                | `ciinfo.CODESHIP`           | 🚫   |
+| [Drone](https://drone.io)                                                       | `ciinfo.DRONE`              | ✅   |
+| [dsari](https://github.com/rfinnie/dsari)                                       | `ciinfo.DSARI`              | 🚫   |
+| [Expo Application Services](https://expo.dev/eas)                               | `ciinfo.EAS`                | 🚫   |
+| [Gerrit CI](https://www.gerritcodereview.com)                                   | `ciinfo.GERRIT`             | 🚫   |
+| [GitHub Actions](https://github.com/features/actions/)                          | `ciinfo.GITHUB_ACTIONS`     | ✅   |
+| [GitLab CI](https://about.gitlab.com/gitlab-ci/)                                | `ciinfo.GITLAB`             | ✅   |
+| [GoCD](https://www.go.cd/)                                                      | `ciinfo.GOCD`               | 🚫   |
+| [Google Cloud Build](https://cloud.google.com/build)                            | `ciinfo.GOOGLE_CLOUD_BUILD` | 🚫   |
+| [Heroku](https://www.heroku.com)                                                | `ciinfo.HEROKU`             | 🚫   |
+| [Hudson](http://hudson-ci.org)                                                  | `ciinfo.HUDSON`             | 🚫   |
+| [Jenkins CI](https://jenkins-ci.org)                                            | `ciinfo.JENKINS`            | ✅   |
+| [LayerCI](https://layerci.com/)                                                 | `ciinfo.LAYERCI`            | ✅   |
+| [Magnum CI](https://magnum-ci.com)                                              | `ciinfo.MAGNUM`             | 🚫   |
+| [Netlify CI](https://www.netlify.com/)                                          | `ciinfo.NETLIFY`            | ✅   |
+| [Nevercode](http://nevercode.io/)                                               | `ciinfo.NEVERCODE`          | ✅   |
+| [ReleaseHub](https://releasehub.com/)                                           | `ciinfo.RELEASEHUB`         | ✅   |
+| [Render](https://render.com/)                                                   | `ciinfo.RENDER`             | ✅   |
+| [Sail CI](https://sail.ci/)                                                     | `ciinfo.SAIL`               | ✅   |
+| [Screwdriver](https://screwdriver.cd/)                                          | `ciinfo.SCREWDRIVER`        | ✅   |
+| [Semaphore](https://semaphoreci.com)                                            | `ciinfo.SEMAPHORE`          | ✅   |
+| [Shippable](https://www.shippable.com/)                                         | `ciinfo.SHIPPABLE`          | ✅   |
+| [Sourcehut](https://sourcehut.org/)                                             | `ciinfo.SOURCEHUT`          | 🚫   |
+| [Solano CI](https://www.solanolabs.com/)                                        | `ciinfo.SOLANO`             | ✅   |
+| [Strider CD](https://strider-cd.github.io/)                                     | `ciinfo.STRIDER`            | 🚫   |
+| [TaskCluster](http://docs.taskcluster.net)                                      | `ciinfo.TASKCLUSTER`        | 🚫   |
+| [TeamCity](https://www.jetbrains.com/teamcity/) by JetBrains                    | `ciinfo.TEAMCITY`           | 🚫   |
+| [Travis CI](http://travis-ci.org)                                               | `ciinfo.TRAVIS`             | ✅   |
+| [Vercel](https://vercel.com/)                                                   | `ciinfo.VERCEL`             | 🚫   |
+| [Visual Studio App Center](https://appcenter.ms/)                               | `ciinfo.APPCENTER`          | 🚫   |
+| [Woodpecker](https://woodpecker-ci.org/)                                        | `ciinfo.WOODPECKER`         | ✅   |
 
 ## API 
 
@@ -111,20 +113,16 @@ Returns a boolean if PR detection is supported for the current CI server. Will
 be `true` if a PR is being tested, otherwise `false`. If PR detection is
 not supported for the current CI server, the value will be `false`.
 
-### `ciinfo.IsVendor(<VENDOR-CONSTANT>)`
+### `ciinfo.<VENDOR-CONSTANT>`
 
 A vendor specific boolean constant is exposed for each support CI
 vendor. A constant will be `true` if the code is determined to run on
 the given CI server, otherwise `false`.
 
-Examples of vendor constants are `ciinfo.IsVendor("TRAVIS")` or `ciinfo.IsVendor("APPVEYOR")`. For a
+Examples of vendor constants are `ciinfo.TRAVIS` or `ciinfo.APPVEYOR`. For a
 complete list, see the support table above.
 
 Deprecated vendor constants that will be removed in the next major
 release:
 
 - `ciinfo.IsVendor("TDDIUM")` (Solano CI) This has been renamed `ciinfo.IsVendor("SOLANO")`
-
-## License
-
-[MIT](LICENSE)
