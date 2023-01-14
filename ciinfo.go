@@ -60,7 +60,7 @@ func initialize() {
 		}
 	}
 
-	IsCI = Name != "" || isCI()
+	IsCI = os.Getenv("CI") != "false" && (Name != "" || isCI())
 }
 
 func isCI() bool {

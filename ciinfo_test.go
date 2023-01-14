@@ -78,14 +78,29 @@ func TestCI(t *testing.T) {
 	})
 
 	t.Run("Not CI", func(t *testing.T) {
-		os.Clearenv()
+		t.Run("explicitly", func(t *testing.T) {
+			// should ignore this and respect CI == false
+			setEnv(t, "BUILD_ID", "true")
+			setEnv(t, "CI", "false")
 
-		initialize()
+			initialize()
 
-		assertEqual(t, false, IsCI)
-		assertEqual(t, false, IsPr)
-		assertEqual(t, "", Name)
-		assertVendorConstants(t, "")
+			assertEqual(t, false, IsCI)
+			assertEqual(t, false, IsPr)
+			assertEqual(t, "", Name)
+			assertVendorConstants(t, "")
+		})
+
+		t.Run("implicitly", func(t *testing.T) {
+			os.Clearenv()
+
+			initialize()
+
+			assertEqual(t, false, IsCI)
+			assertEqual(t, false, IsPr)
+			assertEqual(t, "", Name)
+			assertVendorConstants(t, "")
+		})
 	})
 
 	t.Run("Anonymous CI", func(t *testing.T) {
