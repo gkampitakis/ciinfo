@@ -79,6 +79,7 @@ func TestCI(t *testing.T) {
 
 	t.Run("Not CI", func(t *testing.T) {
 		t.Run("explicitly", func(t *testing.T) {
+			os.Clearenv()
 			// should ignore this and respect CI == false
 			setEnv(t, "BUILD_ID", "true")
 			setEnv(t, "CI", "false")
