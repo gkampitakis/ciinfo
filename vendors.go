@@ -188,6 +188,11 @@ var vendors = []vendor{
 		env:      []env{{key: "BUILDER_OUTPUT"}},
 	},
 	{
+		name:     "Harness CI",
+		constant: "HARNESS",
+		env:      []env{{key: "HARNESS_BUILD_ID"}},
+	},
+	{
 		name:     "Hudson",
 		constant: "HUDSON",
 		env:      []env{{key: "HUDSON_URL"}},
