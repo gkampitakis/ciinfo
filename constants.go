@@ -68,6 +68,9 @@ var GOCD = vendorsIsCI["GOCD"]
 // CI is running on Google Cloud Build
 var GOOGLE_CLOUD_BUILD = vendorsIsCI["GOOGLE_CLOUD_BUILD"]
 
+// CI is running on Harness CI
+var HARNESS = vendorsIsCI["HARNESS"]
+
 // CI is running on Hudson
 var HUDSON = vendorsIsCI["HUDSON"]
 

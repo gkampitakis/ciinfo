@@ -70,7 +70,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 46, len(vendors), "We should have 46 vendors")
+		assertEqual(t, 47, len(vendors), "We should have 47 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -804,6 +804,17 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				setEnv(t, "BUILDER_OUTPUT", "1")
+			},
+		},
+		{
+			description: "Harness CI",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Harness CI",
+				constant: "HARNESS",
+			},
+			setup: func(t *testing.T) {
+				setEnv(t, "HARNESS_BUILD_ID", "1")
 			},
 		},
 	} {
