@@ -36,6 +36,33 @@ if ciinfo.IsCI {
 }
 ```
 
+## CLI Support
+
+`ciinfo` can also be used as a CLI. You can install it with
+
+```sh
+go install github.com/gkampitakis/ciinfo/ciinfo
+```
+
+Then `ciinfo` command will be successful ( code 0 ) if running on CI else error ( code -1 ).
+
+
+```sh
+#  will output isCI if running onCI
+ciinfo && echo 'isCI'
+```
+
+`ciinfo` also has
+
+```shell
+Usage of ciinfo:
+  -output string
+    	you can output info [json, pretty].
+  -pr
+    	check if shell is running on CI for a Pull Request.
+```
+
+
 ## Supported CI tools
 
 Officially supported CI servers:

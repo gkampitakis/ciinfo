@@ -18,9 +18,11 @@ format: ## Format code
 
 test: ## Run tests
 	go test -test.timeout 120s -count=1 .
+	go test -test.timeout 120s -count=1 ./ciinfo/
 
 test-verbose: ## Run tests with verbose output
 	go test -test.timeout 120s -v -cover -count=1 .
+	go test -test.timeout 120s -v -cover -count=1 ./ciinfo/
 
 compile-constants: ## Generates 'constants.go' containing the list with constant values
 	cp vendors.go compile-constants
