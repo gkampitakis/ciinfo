@@ -41,7 +41,7 @@ if ciinfo.IsCI {
 `ciinfo` can also be used as a CLI. You can install it with
 
 ```sh
-go install github.com/gkampitakis/ciinfo/ciinfo
+go install github.com/gkampitakis/ciinfo/ciinfo@latest
 ```
 
 Then `ciinfo` command will be successful ( code 0 ) if running on CI else error ( code -1 ).
