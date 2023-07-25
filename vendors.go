@@ -356,6 +356,9 @@ var vendors = []vendor{
 		constant: "VERCEL",
 		anyEnv:   true,
 		env:      []env{{key: "NOW_BUILDER"}, {key: "VERCEL"}},
+		pr: []pr{
+			{key: "VERCEL_GIT_PULL_REQUEST_ID"},
+		},
 	},
 	{
 		name:     "Visual Studio App Center",

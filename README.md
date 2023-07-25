@@ -110,7 +110,7 @@ Officially supported CI servers:
 | [TaskCluster](http://docs.taskcluster.net)                                      | `ciinfo.TASKCLUSTER`        | 🚫   |
 | [TeamCity](https://www.jetbrains.com/teamcity/) by JetBrains                    | `ciinfo.TEAMCITY`           | 🚫   |
 | [Travis CI](http://travis-ci.org)                                               | `ciinfo.TRAVIS`             | ✅   |
-| [Vercel](https://vercel.com/)                                                   | `ciinfo.VERCEL`             | 🚫   |
+| [Vercel](https://vercel.com/)                                                   | `ciinfo.VERCEL`             | ✅   |
 | [Visual Studio App Center](https://appcenter.ms/)                               | `ciinfo.APPCENTER`          | 🚫   |
 | [Woodpecker](https://woodpecker-ci.org/)                                        | `ciinfo.WOODPECKER`         | ✅   |
 
