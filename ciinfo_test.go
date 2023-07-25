@@ -606,6 +606,18 @@ func TestCI(t *testing.T) {
 			},
 		},
 		{
+			description: "Vercel - PR",
+			expected: ScenarioExpected{
+				isPR:     true,
+				name:     "Vercel",
+				constant: "VERCEL",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("VERCEL", "1")
+				t.Setenv("VERCEL_GIT_PULL_REQUEST_ID", "23")
+			},
+		},
+		{
 			description: "Nevercode - PR",
 			expected: ScenarioExpected{
 				isPR:     true,
