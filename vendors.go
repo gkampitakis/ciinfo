@@ -45,8 +45,8 @@ var vendors = []vendor{
 	{
 		name:     "Azure Pipelines",
 		constant: "AZURE_PIPELINES",
-		env:      []env{{key: "SYSTEM_TEAMFOUNDATIONCOLLECTIONURI"}},
-		pr:       []pr{{key: "SYSTEM_PULLREQUEST_PULLREQUESTID"}},
+		env:      []env{{key: "TF_BUILD"}},
+		pr:       []pr{{key: "BUILD_REASON", eq: "PullRequest"}},
 	},
 	{
 		name:     "Bamboo",

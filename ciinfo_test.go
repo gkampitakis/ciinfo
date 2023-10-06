@@ -146,8 +146,8 @@ func TestCI(t *testing.T) {
 				constant: "AZURE_PIPELINES",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI", "https://dev.azure.com/Contoso")
-				t.Setenv("SYSTEM_PULLREQUEST_PULLREQUESTID", "42")
+				t.Setenv("TF_BUILD", "true")
+				t.Setenv("BUILD_REASON", "PullRequest")
 			},
 		},
 		{
@@ -158,7 +158,7 @@ func TestCI(t *testing.T) {
 				constant: "AZURE_PIPELINES",
 			},
 			setup: func(t *testing.T) {
-				t.Setenv("SYSTEM_TEAMFOUNDATIONCOLLECTIONURI", "https://dev.azure.com/Contoso")
+				t.Setenv("TF_BUILD", "true")
 			},
 		},
 		{
