@@ -50,7 +50,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 49, len(vendors), "We should have 49 vendors")
+		assertEqual(t, 50, len(vendors), "We should have 50 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -828,6 +828,17 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				t.Setenv("PROW_JOB_ID", "123")
+			},
+		},
+		{
+			description: "Earthly CI",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Earthly",
+				constant: "EARTHLY",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("EARTHLY_CI", "")
 			},
 		},
 	} {
