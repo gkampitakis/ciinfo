@@ -131,6 +131,9 @@ var TEAMCITY = vendorsIsCI["TEAMCITY"]
 // CI is running on Travis CI
 var TRAVIS = vendorsIsCI["TRAVIS"]
 
+// CI is running on Vela
+var VELA = vendorsIsCI["VELA"]
+
 // CI is running on Vercel
 var VERCEL = vendorsIsCI["VERCEL"]
 
