@@ -53,7 +53,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 47, len(vendors), "We should have 47 vendors")
+		assertEqual(t, 48, len(vendors), "We should have 47 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -797,6 +797,29 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				t.Setenv("GITEA_ACTIONS", "")
+			},
+		},
+		{
+			description: "Agola CI",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Agola CI",
+				constant: "AGOLA",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("AGOLA_GIT_REF", "")
+			},
+		},
+		{
+			description: "Agola CI - PR",
+			expected: ScenarioExpected{
+				isPR:     true,
+				name:     "Agola CI",
+				constant: "AGOLA",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("AGOLA_GIT_REF", "")
+				t.Setenv("AGOLA_PULL_REQUEST_ID", "")
 			},
 		},
 	} {

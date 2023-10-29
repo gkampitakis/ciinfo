@@ -2,6 +2,9 @@ package ciinfo
 
 // This file is generated. Run `make compile-constants` to update.
 
+// CI is running on Agola CI
+var AGOLA = vendorsIsCI["AGOLA"]
+
 // CI is running on Appcircle
 var APPCIRCLE = vendorsIsCI["APPCIRCLE"]
 
@@ -55,6 +58,9 @@ var EAS = vendorsIsCI["EAS"]
 
 // CI is running on Gerrit
 var GERRIT = vendorsIsCI["GERRIT"]
+
+// CI is running on Gitea Actions
+var GITEA_ACTIONS = vendorsIsCI["GITEA_ACTIONS"]
 
 // CI is running on GitHub Actions
 var GITHUB_ACTIONS = vendorsIsCI["GITHUB_ACTIONS"]
