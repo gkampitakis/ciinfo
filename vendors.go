@@ -352,6 +352,12 @@ var vendors = []vendor{
 		},
 	},
 	{
+		name:     "Vela",
+		constant: "VELA",
+		env:      []env{{key: "VELA"}},
+		pr:       []pr{{key: "VELA_PULL_REQUEST", eq: "1"}},
+	},
+	{
 		name:     "Vercel",
 		constant: "VERCEL",
 		anyEnv:   true,
