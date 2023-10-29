@@ -311,16 +311,6 @@ var vendors = []vendor{
 		},
 	},
 	{
-		name:     "Solano CI",
-		constant: "SOLANO",
-		env:      []env{{key: "TDDIUM"}},
-		pr: []pr{
-			{
-				key: "TDDIUM_PR_ID",
-			},
-		},
-	},
-	{
 		name:     "Sourcehut",
 		constant: "SOURCEHUT",
 		env:      []env{{key: "CI_NAME", eq: "sourcehut"}},
