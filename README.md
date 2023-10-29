@@ -5,8 +5,8 @@
 This repository is based on work done in [watson/ci-info](https://github.com/watson/ci-info)
 and the contributors.
 
-I will do my best to keep this library up to date and in sync with changes in 
-[watson/ci-info](https://github.com/watson/ci-info). 
+I will do my best to keep this library up to date and in sync with changes in
+[watson/ci-info](https://github.com/watson/ci-info).
 
 ---
 
@@ -46,7 +46,6 @@ go install github.com/gkampitakis/ciinfo/ciinfo@latest
 
 Then `ciinfo` command will be successful ( code 0 ) if running on CI else error ( code -1 ).
 
-
 ```sh
 #  will output isCI if running onCI
 ciinfo && echo 'isCI'
@@ -61,7 +60,6 @@ Usage of ciinfo:
   -pr
     	check if shell is running on CI for a Pull Request.
 ```
-
 
 ## Supported CI tools
 
@@ -88,6 +86,7 @@ Officially supported CI servers:
 | [Gerrit CI](https://www.gerritcodereview.com)                                   | `ciinfo.GERRIT`             | 🚫   |
 | [GitHub Actions](https://github.com/features/actions/)                          | `ciinfo.GITHUB_ACTIONS`     | ✅   |
 | [GitLab CI](https://about.gitlab.com/gitlab-ci/)                                | `ciinfo.GITLAB`             | ✅   |
+| [Gitea Actions](https://about.gitea.com/)                                       | `ci.GITEA_ACTIONS`          | 🚫   |
 | [GoCD](https://www.go.cd/)                                                      | `ciinfo.GOCD`               | 🚫   |
 | [Google Cloud Build](https://cloud.google.com/build)                            | `ciinfo.GOOGLE_CLOUD_BUILD` | 🚫   |
 | [Harness CI](https://www.harness.io/products/continuous-integration)            | `ciinfo.HARNESS`            | 🚫   |
@@ -113,7 +112,7 @@ Officially supported CI servers:
 | [Visual Studio App Center](https://appcenter.ms/)                               | `ciinfo.APPCENTER`          | 🚫   |
 | [Woodpecker](https://woodpecker-ci.org/)                                        | `ciinfo.WOODPECKER`         | ✅   |
 
-## API 
+## API
 
 ### `ciinfo.Name`
 
