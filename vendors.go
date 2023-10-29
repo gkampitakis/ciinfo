@@ -157,6 +157,11 @@ var vendors = []vendor{
 		env:      []env{{key: "GERRIT_PROJECT"}},
 	},
 	{
+		name:     "Gitea Actions",
+		constant: "GITEA_ACTIONS",
+		env:      []env{{key: "GITEA_ACTIONS"}},
+	},
+	{
 		name:     "GitHub Actions",
 		constant: "GITHUB_ACTIONS",
 		env:      []env{{key: "GITHUB_ACTIONS"}},
