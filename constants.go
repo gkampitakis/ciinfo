@@ -95,6 +95,9 @@ var MAGNUM = vendorsIsCI["MAGNUM"]
 // CI is running on Netlify CI
 var NETLIFY = vendorsIsCI["NETLIFY"]
 
+// CI is running on Prow
+var PROW = vendorsIsCI["PROW"]
+
 // CI is running on ReleaseHub
 var RELEASEHUB = vendorsIsCI["RELEASEHUB"]
 

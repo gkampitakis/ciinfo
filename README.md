@@ -98,6 +98,7 @@ Officially supported CI servers:
 | [Magnum CI](https://magnum-ci.com)                                              | `ciinfo.MAGNUM`             | 🚫   |
 | [Netlify CI](https://www.netlify.com/)                                          | `ciinfo.NETLIFY`            | ✅   |
 | [Nevercode](http://nevercode.io/)                                               | `ciinfo.NEVERCODE`          | ✅   |
+| [Prow](https://docs.prow.k8s.io/)                                               | `ci.PROW`                   | 🚫   |
 | [ReleaseHub](https://releasehub.com/)                                           | `ciinfo.RELEASEHUB`         | ✅   |
 | [Render](https://render.com/)                                                   | `ciinfo.RENDER`             | ✅   |
 | [Sail CI](https://sail.ci/)                                                     | `ciinfo.SAIL`               | ✅   |

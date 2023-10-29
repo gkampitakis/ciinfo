@@ -253,6 +253,11 @@ var vendors = []vendor{
 		},
 	},
 	{
+		name:     "Prow",
+		constant: "PROW",
+		env:      []env{{key: "PROW_JOB_ID"}},
+	},
+	{
 		name:     "ReleaseHub",
 		constant: "RELEASEHUB",
 		env:      []env{{key: "RELEASE_BUILD_ID"}},
