@@ -103,7 +103,6 @@ Officially supported CI servers:
 | [Sail CI](https://sail.ci/)                                                     | `ciinfo.SAIL`               | ✅   |
 | [Screwdriver](https://screwdriver.cd/)                                          | `ciinfo.SCREWDRIVER`        | ✅   |
 | [Semaphore](https://semaphoreci.com)                                            | `ciinfo.SEMAPHORE`          | ✅   |
-| [Shippable](https://www.shippable.com/)                                         | `ciinfo.SHIPPABLE`          | ✅   |
 | [Sourcehut](https://sourcehut.org/)                                             | `ciinfo.SOURCEHUT`          | 🚫   |
 | [Solano CI](https://www.solanolabs.com/)                                        | `ciinfo.SOLANO`             | ✅   |
 | [Strider CD](https://strider-cd.github.io/)                                     | `ciinfo.STRIDER`            | 🚫   |
