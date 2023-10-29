@@ -53,6 +53,9 @@ var DRONE = vendorsIsCI["DRONE"]
 // CI is running on dsari
 var DSARI = vendorsIsCI["DSARI"]
 
+// CI is running on Earthly
+var EARTHLY = vendorsIsCI["EARTHLY"]
+
 // CI is running on Expo Application Services
 var EAS = vendorsIsCI["EAS"]
 

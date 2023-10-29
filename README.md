@@ -83,6 +83,7 @@ Officially supported CI servers:
 | [Codeship](https://codeship.com)                                                | `ciinfo.CODESHIP`           | 🚫   |
 | [Drone](https://drone.io)                                                       | `ciinfo.DRONE`              | ✅   |
 | [dsari](https://github.com/rfinnie/dsari)                                       | `ciinfo.DSARI`              | 🚫   |
+| [Earthly CI](https://earthly.dev/)                                              | `ci.EARTHLY`                | 🚫   |
 | [Expo Application Services](https://expo.dev/eas)                               | `ciinfo.EAS`                | 🚫   |
 | [Gerrit CI](https://www.gerritcodereview.com)                                   | `ciinfo.GERRIT`             | 🚫   |
 | [GitHub Actions](https://github.com/features/actions/)                          | `ciinfo.GITHUB_ACTIONS`     | ✅   |

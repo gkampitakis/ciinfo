@@ -153,6 +153,11 @@ var vendors = []vendor{
 		env:      []env{{key: "DSARI"}},
 	},
 	{
+		name:     "Earthly",
+		constant: "EARTHLY",
+		env:      []env{{key: "EARTHLY_CI"}},
+	},
+	{
 		name:     "Expo Application Services",
 		constant: "EAS",
 		env:      []env{{key: "EAS_BUILD"}},
