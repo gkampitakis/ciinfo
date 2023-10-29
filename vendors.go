@@ -23,6 +23,12 @@ type vendor struct {
 
 var vendors = []vendor{
 	{
+		name:     "Agola CI",
+		constant: "AGOLA",
+		env:      []env{{key: "AGOLA_GIT_REF"}},
+		pr:       []pr{{key: "AGOLA_PULL_REQUEST_ID"}},
+	},
+	{
 		name:     "Appcircle",
 		constant: "APPCIRCLE",
 		env:      []env{{key: "AC_APPCIRCLE"}},
