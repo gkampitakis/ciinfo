@@ -53,7 +53,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 47, len(vendors), "We should have 47 vendors")
+		assertEqual(t, 46, len(vendors), "We should have 47 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -464,30 +464,6 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				t.Setenv("SEMAPHORE", "true")
-			},
-		},
-		{
-			description: "Shippable - PR",
-			expected: ScenarioExpected{
-				isPR:     true,
-				name:     "Shippable",
-				constant: "SHIPPABLE",
-			},
-			setup: func(t *testing.T) {
-				t.Setenv("SHIPPABLE", "true")
-				t.Setenv("IS_PULL_REQUEST", "true")
-			},
-		},
-		{
-			description: "Shippable - Not PR",
-			expected: ScenarioExpected{
-				isPR:     false,
-				name:     "Shippable",
-				constant: "SHIPPABLE",
-			},
-			setup: func(t *testing.T) {
-				t.Setenv("SHIPPABLE", "true")
-				t.Setenv("IS_PULL_REQUEST", "false")
 			},
 		},
 		{

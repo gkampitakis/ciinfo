@@ -300,17 +300,6 @@ var vendors = []vendor{
 		},
 	},
 	{
-		name:     "Shippable",
-		constant: "SHIPPABLE",
-		env:      []env{{key: "SHIPPABLE"}},
-		pr: []pr{
-			{
-				key: "IS_PULL_REQUEST",
-				eq:  "true",
-			},
-		},
-	},
-	{
 		name:     "Solano CI",
 		constant: "SOLANO",
 		env:      []env{{key: "TDDIUM"}},
