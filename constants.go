@@ -113,9 +113,6 @@ var SCREWDRIVER = vendorsIsCI["SCREWDRIVER"]
 // CI is running on Semaphore
 var SEMAPHORE = vendorsIsCI["SEMAPHORE"]
 
-// CI is running on Solano CI
-var SOLANO = vendorsIsCI["SOLANO"]
-
 // CI is running on Sourcehut
 var SOURCEHUT = vendorsIsCI["SOURCEHUT"]
 

@@ -104,7 +104,6 @@ Officially supported CI servers:
 | [Screwdriver](https://screwdriver.cd/)                                          | `ciinfo.SCREWDRIVER`        | ✅   |
 | [Semaphore](https://semaphoreci.com)                                            | `ciinfo.SEMAPHORE`          | ✅   |
 | [Sourcehut](https://sourcehut.org/)                                             | `ciinfo.SOURCEHUT`          | 🚫   |
-| [Solano CI](https://www.solanolabs.com/)                                        | `ciinfo.SOLANO`             | ✅   |
 | [Strider CD](https://strider-cd.github.io/)                                     | `ciinfo.STRIDER`            | 🚫   |
 | [TaskCluster](http://docs.taskcluster.net)                                      | `ciinfo.TASKCLUSTER`        | 🚫   |
 | [TeamCity](https://www.jetbrains.com/teamcity/) by JetBrains                    | `ciinfo.TEAMCITY`           | 🚫   |
@@ -149,8 +148,3 @@ the given CI server, otherwise `false`.
 
 Examples of vendor constants are `ciinfo.TRAVIS` or `ciinfo.APPVEYOR`. For a
 complete list, see the support table above.
-
-Deprecated vendor constants that will be removed in the next major
-release:
-
-- `ciinfo.IsVendor("TDDIUM")` (Solano CI) This has been renamed `ciinfo.IsVendor("SOLANO")`

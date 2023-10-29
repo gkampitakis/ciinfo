@@ -29,9 +29,6 @@ func assertVendorConstants(t *testing.T, expected string) {
 
 	for _, vendor := range vendors {
 		boolean := vendor.constant == expected
-		boolean = expected == "SOLANO" && vendor.constant == "TDDIUM" ||
-			boolean // support deprecated option
-
 		assertEqual(t, boolean, vendorsIsCI[vendor.constant], "ci."+vendor.constant)
 	}
 }
@@ -53,7 +50,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 49, len(vendors), "We should have 49 vendors")
+		assertEqual(t, 48, len(vendors), "We should have 48 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -464,29 +461,6 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				t.Setenv("SEMAPHORE", "true")
-			},
-		},
-		{
-			description: "Solano CI - PR",
-			expected: ScenarioExpected{
-				isPR:     true,
-				name:     "Solano CI",
-				constant: "SOLANO",
-			},
-			setup: func(t *testing.T) {
-				t.Setenv("TDDIUM", "true")
-				t.Setenv("TDDIUM_PR_ID", "42")
-			},
-		},
-		{
-			description: "Solano CI - Not PR",
-			expected: ScenarioExpected{
-				isPR:     false,
-				name:     "Solano CI",
-				constant: "SOLANO",
-			},
-			setup: func(t *testing.T) {
-				t.Setenv("TDDIUM", "true")
 			},
 		},
 		{
