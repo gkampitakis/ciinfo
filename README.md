@@ -68,7 +68,7 @@ Officially supported CI servers:
 | Name                                                                            | Constant                    | isPR |
 | ------------------------------------------------------------------------------- | --------------------------- | ---- |
 | [Agola CI](https://agola.io/)                                                   | `ci.AGOLA`                  | ✅   |
-| [AWS CodeBuild](https://aws.amazon.com/codebuild/)                              | `ciinfo.CODEBUILD`          | 🚫   |
+| [AWS CodeBuild](https://aws.amazon.com/codebuild/)                              | `ciinfo.CODEBUILD`          | ✅   |
 | [AppVeyor](http://www.appveyor.com)                                             | `ciinfo.APPVEYOR`           | ✅   |
 | [Azure Pipelines](https://azure.microsoft.com/en-us/services/devops/pipelines/) | `ciinfo.AZURE_PIPELINES`    | ✅   |
 | [Appcircle](https://appcircle.io/)                                              | `ciinfo.APPCIRCLE`          | 🚫   |

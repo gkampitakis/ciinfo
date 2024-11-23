@@ -52,12 +52,7 @@ func initialize() {
 		}
 
 		Name = vendor.name
-
-		for _, pr := range vendor.pr {
-			if IsPr = verifyPr(pr); IsPr {
-				break
-			}
-		}
+		IsPr = anyPr(vendor.pr)
 	}
 
 	IsCI = os.Getenv("CI") != "false" && (Name != "" || isCI())
@@ -105,6 +100,16 @@ func verifyCI(e env) bool {
 	}
 
 	return true
+}
+
+func anyPr(pr []pr) bool {
+	for _, p := range pr {
+		if verifyPr(p) {
+			return true
+		}
+	}
+
+	return false
 }
 
 func verifyPr(p pr) bool {
