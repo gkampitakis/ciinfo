@@ -113,6 +113,54 @@ func TestCI(t *testing.T) {
 
 	for _, scenario := range []TestScenario{
 		{
+			description: "AWS CodeBuild - PR",
+			expected: ScenarioExpected{
+				isPR:     true,
+				name:     "AWS CodeBuild",
+				constant: "CODEBUILD",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("CODEBUILD_BUILD_ARN", "arn")
+				t.Setenv("CODEBUILD_WEBHOOK_EVENT", "PULL_REQUEST_CREATED")
+			},
+		},
+		{
+			description: "AWS CodeBuild - PR",
+			expected: ScenarioExpected{
+				isPR:     true,
+				name:     "AWS CodeBuild",
+				constant: "CODEBUILD",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("CODEBUILD_BUILD_ARN", "arn")
+				t.Setenv("CODEBUILD_WEBHOOK_EVENT", "PULL_REQUEST_UPDATED")
+			},
+		},
+		{
+			description: "AWS CodeBuild - PR",
+			expected: ScenarioExpected{
+				isPR:     true,
+				name:     "AWS CodeBuild",
+				constant: "CODEBUILD",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("CODEBUILD_BUILD_ARN", "arn")
+				t.Setenv("CODEBUILD_WEBHOOK_EVENT", "PULL_REQUEST_REOPENED")
+			},
+		},
+		{
+			description: "AWS CodeBuild - Not PR",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "AWS CodeBuild",
+				constant: "CODEBUILD",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("CODEBUILD_BUILD_ARN", "arn")
+				t.Setenv("CODEBUILD_WEBHOOK_EVENT", "some-event")
+			},
+		},
+		{
 			description: "AppVeyor - PR",
 			expected: ScenarioExpected{
 				isPR:     true,

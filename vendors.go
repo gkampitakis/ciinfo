@@ -47,6 +47,11 @@ var vendors = []vendor{
 		name:     "AWS CodeBuild",
 		constant: "CODEBUILD",
 		env:      []env{{key: "CODEBUILD_BUILD_ARN"}},
+		pr: []pr{
+			{key: "CODEBUILD_WEBHOOK_EVENT", eq: "PULL_REQUEST_CREATED"},
+			{key: "CODEBUILD_WEBHOOK_EVENT", eq: "PULL_REQUEST_UPDATED"},
+			{key: "CODEBUILD_WEBHOOK_EVENT", eq: "PULL_REQUEST_REOPENED"},
+		},
 	},
 	{
 		name:     "Azure Pipelines",
