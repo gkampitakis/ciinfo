@@ -899,6 +899,7 @@ func TestCI(t *testing.T) {
 			assertEqual(t, scenario.expected.isPR, IsPr)
 			assertEqual(t, scenario.expected.name, Name)
 			assertEqual(t, true, IsVendor(scenario.expected.constant))
+			assertEqual(t, scenario.expected.constant, ID)
 			assertVendorConstants(t, scenario.expected.constant)
 		})
 	}
