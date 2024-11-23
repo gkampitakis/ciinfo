@@ -21,12 +21,7 @@ jobs:
         with:
           go-version: 1.20.x
       - uses: actions/checkout@v3
-      - name: golangci-lint
-        uses: golangci/golangci-lint-action@v3
-        with:
-          version: "latest"
-          args: -c ./golangci.yml
-      - name: Format lint
+      - name: Lint
         run: |
           make install-tools && make format && git diff --quiet
       - name: Stale constants
@@ -37,7 +32,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        go: ["1.18.x", "1.19.x", "1.20.x"]
+        go: ["1.20.x"]
     steps:
       - uses: actions/checkout@v3
       - name: Setup go

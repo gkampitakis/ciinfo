@@ -20,8 +20,8 @@ linters-settings:
   gofumpt:
     extra-rules: true
 
-run:
-  skip-files:
+issues:
+  exclude-files:
     - constants.go
-  skip-dirs:
+  exclude-dirs:
     - compile-constants
