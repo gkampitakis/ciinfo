@@ -32,6 +32,7 @@ var vendors = []vendor{
 		name:     "Appcircle",
 		constant: "APPCIRCLE",
 		env:      []env{{key: "AC_APPCIRCLE"}},
+		pr:       []pr{{key: "AC_GIT_PR", ne: "false"}},
 	},
 	{
 		name:     "AppVeyor",

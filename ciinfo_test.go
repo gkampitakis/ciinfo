@@ -196,6 +196,30 @@ func TestCI(t *testing.T) {
 			},
 		},
 		{
+			description: "Appcircle - PR",
+			expected: ScenarioExpected{
+				isPR:     true,
+				name:     "Appcircle",
+				constant: "APPCIRCLE",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("AC_APPCIRCLE", "true")
+				t.Setenv("AC_GIT_PR", "true")
+			},
+		},
+		{
+			description: "Appcircle - Not PR",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Appcircle",
+				constant: "APPCIRCLE",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("AC_APPCIRCLE", "true")
+				t.Setenv("AC_GIT_PR", "false")
+			},
+		},
+		{
 			description: "Azure Pipelines - Not PR",
 			expected: ScenarioExpected{
 				isPR:     false,
