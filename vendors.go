@@ -117,6 +117,11 @@ var vendors = []vendor{
 		},
 	},
 	{
+		name:     "Cloudflare Pages",
+		constant: "CLOUDFLARE_PAGES",
+		env:      []env{{key: "CF_PAGES"}},
+	},
+	{
 		name:     "Cirrus CI",
 		constant: "CIRRUS",
 		env:      []env{{key: "CIRRUS_CI"}},

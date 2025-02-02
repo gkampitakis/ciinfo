@@ -50,7 +50,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 50, len(vendors), "We should have 50 vendors")
+		assertEqual(t, 51, len(vendors), "We should have 51 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -88,7 +88,7 @@ func TestCI(t *testing.T) {
 		envKeys := []string{
 			"BUILD_ID",               // Jenkins, Cloudbees
 			"BUILD_NUMBER",           // Jenkins, TeamCity
-			"CI",                     // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
+			"CI",                     // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari, Cloudflare Pages
 			"CI_APP_ID",              // Appflow
 			"CI_BUILD_ID",            // Appflow
 			"CI_BUILD_NUMBER",        // Appflow
@@ -321,6 +321,17 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				t.Setenv("CIRRUS_CI", "true")
+			},
+		},
+		{
+			description: "Cloudflare Pages - Not PR",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Cloudflare Pages",
+				constant: "CLOUDFLARE_PAGES",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("CF_PAGES", "1")
 			},
 		},
 		{

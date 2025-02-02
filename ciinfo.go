@@ -82,7 +82,7 @@ func isCI() bool {
 	envKeys := []string{
 		"BUILD_ID",               // Jenkins, Cloudbees
 		"BUILD_NUMBER",           // Jenkins, TeamCity
-		"CI",                     // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari
+		"CI",                     // Travis CI, CircleCI, Cirrus CI, Gitlab CI, Appveyor, CodeShip, dsari, Cloudflare Pages
 		"CI_APP_ID",              // Appflow
 		"CI_BUILD_ID",            // Appflow
 		"CI_BUILD_NUMBER",        // Appflow

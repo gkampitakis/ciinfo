@@ -35,6 +35,9 @@ var BUILDKITE = vendorsIsCI["BUILDKITE"]
 // CI is running on CircleCI
 var CIRCLE = vendorsIsCI["CIRCLE"]
 
+// CI is running on Cloudflare Pages
+var CLOUDFLARE_PAGES = vendorsIsCI["CLOUDFLARE_PAGES"]
+
 // CI is running on Cirrus CI
 var CIRRUS = vendorsIsCI["CIRRUS"]
 
