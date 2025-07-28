@@ -38,6 +38,9 @@ var CIRCLE = vendorsIsCI["CIRCLE"]
 // CI is running on Cloudflare Pages
 var CLOUDFLARE_PAGES = vendorsIsCI["CLOUDFLARE_PAGES"]
 
+// CI is running on Cloudflare Workers
+var CLOUDFLARE_WORKERS = vendorsIsCI["CLOUDFLARE_WORKERS"]
+
 // CI is running on Cirrus CI
 var CIRRUS = vendorsIsCI["CIRRUS"]
 

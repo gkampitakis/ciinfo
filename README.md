@@ -80,6 +80,7 @@ Officially supported CI servers:
 | [CircleCI](http://circleci.com)                                                 | `ciinfo.CIRCLE`             | ✅   |
 | [Cirrus CI](https://cirrus-ci.org)                                              | `ciinfo.CIRRUS`             | ✅   |
 | [Cloudflare Pages](https://pages.cloudflare.com/)                               | `ci.CLOUDFLARE_PAGES`       | 🚫   |
+| [Cloudflare Workers](https://pages.cloudflare.com/)                             | `ci.CLOUDFLARE_WORKERS`     | 🚫   |
 | [Codefresh](https://codefresh.io/)                                              | `ciinfo.CODEFRESH`          | ✅   |
 | [Codeship](https://codeship.com)                                                | `ciinfo.CODESHIP`           | 🚫   |
 | [Drone](https://drone.io)                                                       | `ciinfo.DRONE`              | ✅   |

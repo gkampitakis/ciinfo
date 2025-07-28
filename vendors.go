@@ -122,6 +122,11 @@ var vendors = []vendor{
 		env:      []env{{key: "CF_PAGES"}},
 	},
 	{
+		name:     "Cloudflare Workers",
+		constant: "CLOUDFLARE_WORKERS",
+		env:      []env{{key: "WORKERS_CI"}},
+	},
+	{
 		name:     "Cirrus CI",
 		constant: "CIRRUS",
 		env:      []env{{key: "CIRRUS_CI"}},

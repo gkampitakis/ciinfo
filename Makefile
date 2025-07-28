@@ -26,5 +26,9 @@ test-verbose: ## Run tests with verbose output
 
 compile-constants: ## Generates 'constants.go' containing the list with constant values
 	cp vendors.go compile-constants
-	sed -i 's/ciinfo/main/' compile-constants/vendors.go
+	$(shell if [ "$$(uname)" = "Darwin" ]; then \
+		echo "sed -i '' 's/ciinfo/main/' compile-constants/vendors.go"; \
+	else \
+		echo "sed -i 's/ciinfo/main/' compile-constants/vendors.go"; \
+	fi) | sh
 	go run ./compile-constants/main.go ./compile-constants/vendors.go

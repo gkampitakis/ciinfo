@@ -50,7 +50,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 51, len(vendors), "We should have 51 vendors")
+		assertEqual(t, 52, len(vendors), "We should have 51 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -332,6 +332,17 @@ func TestCI(t *testing.T) {
 			},
 			setup: func(t *testing.T) {
 				t.Setenv("CF_PAGES", "1")
+			},
+		},
+		{
+			description: "Cloudflare Workers - Not PR",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Cloudflare Workers",
+				constant: "CLOUDFLARE_WORKERS",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("WORKERS_CI", "1")
 			},
 		},
 		{
