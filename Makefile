@@ -7,7 +7,7 @@ help:
 install-tools: ## Install linting tools
 	go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.49.0
 	go install mvdan.cc/gofumpt@v0.6.0
-	go install github.com/segmentio/golines@latest
+	go install github.com/segmentio/golines@v0.12.2
 
 lint: ## Run golangci linter
 	golangci-lint run -c ./golangci.yml ./...

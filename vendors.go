@@ -29,6 +29,11 @@ var vendors = []vendor{
 		pr:       []pr{{key: "AGOLA_PULL_REQUEST_ID"}},
 	},
 	{
+		name:     "Alpic",
+		constant: "ALPIC",
+		env:      []env{{key: "ALPIC_HOST"}},
+	},
+	{
 		name:     "Appcircle",
 		constant: "APPCIRCLE",
 		env:      []env{{key: "AC_APPCIRCLE"}},

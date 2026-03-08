@@ -5,6 +5,9 @@ package ciinfo
 // CI is running on Agola CI
 var AGOLA = vendorsIsCI["AGOLA"]
 
+// CI is running on Alpic
+var ALPIC = vendorsIsCI["ALPIC"]
+
 // CI is running on Appcircle
 var APPCIRCLE = vendorsIsCI["APPCIRCLE"]
 
