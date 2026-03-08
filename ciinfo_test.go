@@ -50,7 +50,7 @@ func TestCI(t *testing.T) {
 
 		initialize()
 
-		assertEqual(t, 52, len(vendors), "We should have 51 vendors")
+		assertEqual(t, 53, len(vendors), "We should have 53 vendors")
 		assertEqual(t, true, IsCI)
 		assertEqual(t, isActualPr(), IsPr)
 		assertEqual(t, "GitHub Actions", Name)
@@ -112,6 +112,17 @@ func TestCI(t *testing.T) {
 	})
 
 	for _, scenario := range []TestScenario{
+		{
+			description: "Alpic - Not PR",
+			expected: ScenarioExpected{
+				isPR:     false,
+				name:     "Alpic",
+				constant: "ALPIC",
+			},
+			setup: func(t *testing.T) {
+				t.Setenv("ALPIC_HOST", "true")
+			},
+		},
 		{
 			description: "AWS CodeBuild - PR",
 			expected: ScenarioExpected{
